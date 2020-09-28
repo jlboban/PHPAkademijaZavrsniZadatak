@@ -1,35 +1,32 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Core;
 
 class Route
 {
     public $routes = [
-        "GET" => [],
-        "POST" => [],
-        "PUT" => [],
-        "DELETE" => []
+        'GET' => [],
+        'POST' => []
     ];
 
     public function __construct()
     {
-        $this->register("GET", "pages", "index", "/");
-        $this->register("GET", "pages","events", "pages/events");
-        $this->register("GET", "pages", "badRequest", "pages/400");
-        $this->register("GET", "pages", "notFound", "pages/404");
-        $this->register("GET", "pages", "serverError", "pages/500");
+        $this->register('GET', '/', 'Pages@index');
+        $this->register('GET', 'events', 'Pages@events');
+        $this->register('GET', 'musicians', 'Pages@musicians');
+        $this->register('GET', '400', 'Pages@invalidRequest');
+        $this->register('GET', '404', 'Pages@notFound');
+        $this->register('GET', '500', 'Pages@serverError');
 
-        $this->register("POST", "events", "create", "events/create");
+        $this->register('POST', 'register/submit', 'Register@registerSubmit');
+        $this->register('POST', 'login/submit', 'Login@loginSubmit');
 
-        $this->register("PUT", "events", "edit", "events/edit/{id}");
-
-        $this->register("DELETE", "events", "delete", "events/edit/{id}");
     }
 
-    private function register(string $method, string $controller, string $action, string $url): void
+    private function register(string $method = 'GET', string $url = '/', string $controller = 'Pages'): void
     {
-        $this->routes[$method][$controller][$action] = $url;
+        $this->routes[$method][$url] = $controller;
     }
 }

@@ -1,11 +1,8 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Core;
-
-use Core\Exception\RouterException;
-use Core\Exception\RouteException;
 
 class Router
 {
@@ -17,48 +14,30 @@ class Router
 
     private const CONTROLLER_PREFIX = "\\App\\Controller\\";
     private const CONTROLLER_SUFFIX = "Controller";
-    private const ACTION = "Action";
+    private const ACTION_SUFFIX = "Action";
 
-    public function __construct(Route $route, Request $request)
+    public function __construct()
     {
-        $this->request = $request;
-        $this->route = $route;
+        $this->route = new Route();
+        $this->request = new Request();
     }
 
-    public function match(string $requestMethod, array $url): void
+    public function match(string $requestMethod, string $url)
     {
-        // Limit 3 parameters
-        if (count($url) > 3)
+        if (array_key_exists($url, $this->route->routes[$requestMethod]))
         {
-            throw new RouteException("Invalid URL");
+            $this->dispatch(...explode('@', $this->route->routes[$requestMethod][$url]));
         }
-
-        $controller = $url[0] ?? $this->defaultController;
-        $action = $url[1] ?? $this->defaultAction;
-        $param = $url[2] ?? "";
-
-        // Controller check
-        if (!array_key_exists($controller, $this->route->routes[$requestMethod]))
+        else
         {
-            throw new RouteException("Controller not registered.");
+            throw new RouterException("Invalid route.");
         }
-
-        // Action check
-        if (!array_key_exists($action, $this->route->routes[$requestMethod][$controller]))
-        {
-            throw new RouteException("Action not registered.");
-        }
-
-        // Set empty if param isn't an integer
-        $param = ctype_digit($param) ? $param : "";
-
-        $this->dispatch($controller, $action, $param);
     }
 
-    public function dispatch(string $controller, string $action, string $param = null): void
+    public function dispatch(string $controller, string $action): void
     {
         $controller = self::CONTROLLER_PREFIX . ucfirst($controller) . self::CONTROLLER_SUFFIX;
-        $action = $action . self::ACTION;
+        $action = $action . self::ACTION_SUFFIX;
 
         if (!class_exists($controller))
         {
@@ -72,6 +51,6 @@ class Router
             throw new RouterException("Action does not exist.");
         }
 
-        $controller->$action($param);
+        $controller->$action();
     }
 }

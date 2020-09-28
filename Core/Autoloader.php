@@ -8,7 +8,7 @@ class Autoloader
     {
         spl_autoload_register(function (string $class)
         {
-            $file = BASE_ROOT . str_replace('\\', DS, $class) . '.php';
+            $file = BP . str_replace('\\', DS, $class) . '.php';
 
             if (file_exists($file))
             {

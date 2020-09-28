@@ -7,6 +7,7 @@ use Core\Autoloader;
 use App\Application;
 
 Autoloader::init();
+session_start();
 
 $app = new Application();
 $app->start();

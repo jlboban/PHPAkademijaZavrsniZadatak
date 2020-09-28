@@ -6,23 +6,28 @@ namespace App\Controller;
 
 class PagesController extends AbstractController
 {
-    public function indexAction()
+    public function indexAction(): void
     {
-        echo __METHOD__;
+        $this->view->render('Pages/Index');
     }
 
-    public function badRequestAction()
+    public function eventsAction(): void
     {
-        echo '400';
+        $this->view->render('Pages/Events');
     }
 
-    public function notFoundAction()
+    public function musiciansAction(): void
     {
-        echo '404';
+        $this->view->render('Pages/Musicians');
     }
 
-    public function serverErrorAction()
+    public function notFoundAction(): void
     {
-        echo '500';
+        $this->view->render('Pages/404');
+    }
+
+    public function serverErrorAction(): void
+    {
+        $this->view->render('Pages/500');
     }
 }

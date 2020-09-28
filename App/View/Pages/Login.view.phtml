@@ -1,0 +1,30 @@
+<div class="modal" id="login" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <a href="<?= URL_ROOT; ?>#register" class="btn close" role="button" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </a>
+            <h5 class="modal-title">Login</h5>
+
+            <form action="login/submit" method="POST">
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email" class="required">Email</label>
+                    <input type="email" id="email" class="form-control" name="email" placeholder="Email" required="required"
+                           value="<?= isset($_SESSION['data']['email']) ? $_SESSION['data']['email'] : ''; ?>">
+                    <small class="text-danger"><?= isset($_SESSION['errors']['login']) ? $_SESSION['errors']['login'] : ''; ?></small>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password" class="required">Password</label>
+                    <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="required">
+                </div>
+                <input class="btn btn-primary btn-block" type="submit" value="Login">
+            </form>
+
+        </div>
+    </div>
+</div>
