@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php include TEMPLATE_PATH . "Head.tmpl.phtml"; ?>
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
+
+<!-- Page wrapper start -->
+<div id="page-wrapper" class="page-wrapper with-navbar with-sidebar" data-sidebar-type="default">
+
+    <?php foreach ($data['admins'] as $admin) :?>
+    <!-- Edit modal -->
+    <?php include VIEW_PATH . "Admin/Edit.view.phtml"; ?>
+
+    <!-- Delete modal -->
+    <?php include VIEW_PATH . "Admin/Delete.view.phtml"; ?>
+    <?php endforeach; ?>
+
+    <!-- Sticky alerts -->
+    <div class="sticky-alerts"></div>
+
+    <?php include ADMIN_TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
+
+    <?php include ADMIN_TEMPLATE_PATH . "Sidebar.tmpl.phtml"; ?>
+
+    <!-- Sidebar overlay -->
+    <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
+
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="row row-eq-spacing-lg">
+                <div class="col-lg-12">
+
+                    <div class="content">
+                        <h3>Admin List</h3>
+                        <table class="table table-hover table-responsive">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <?php foreach ($data['admins'] as $admin) :?>
+                            <tr>
+                                <!-- Edit Modal -->
+
+                                <th><?= $admin->getId(); ?></th>
+                                <td><?= $admin->getFirstName(); ?></td>
+                                <td><?= $admin->getLastName(); ?></td>
+                                <td><?= $admin->getEmail(); ?></td>
+                                <td>
+                                    <a href="#edit?id=<?= $admin->getId(); ?>" onclick="halfmoon.toggleModal('edit')" class="btn btn-square">
+                                        <span>
+                                             <i class="fa fa-edit" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                    <a href="<?= URL_ROOT . 'admin/delete?id=' . $admin->getId(); ?>" class="btn btn-square">
+                                        <span>
+                                             <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Content wrapper end -->
+
+</div>
+<!-- Page wrapper end -->
+<?php include TEMPLATE_PATH . "Scripts.tmpl.phtml"; ?>
+
+</body>
+</html>

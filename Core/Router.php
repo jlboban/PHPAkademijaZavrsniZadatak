@@ -16,17 +16,21 @@ class Router
     private const CONTROLLER_SUFFIX = "Controller";
     private const ACTION_SUFFIX = "Action";
 
-    public function __construct()
+    public function __construct(Request $request, Route $route)
     {
-        $this->route = new Route();
-        $this->request = new Request();
+        $this->route = $route;
+        $this->request = $request;
     }
 
     public function match(string $requestMethod, string $url)
     {
         if (array_key_exists($url, $this->route->routes[$requestMethod]))
         {
-            $this->dispatch(...explode('@', $this->route->routes[$requestMethod][$url]));
+            $routeParts = explode('@', $this->route->routes[$requestMethod][$url]);
+            $controller = $routeParts[0] ?? $this->defaultController; // Pages
+            $action = $routeParts[1] ?? $this->defaultAction; // index
+
+            $this->dispatch($controller, $action);
         }
         else
         {

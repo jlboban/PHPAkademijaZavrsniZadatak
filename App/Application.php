@@ -12,13 +12,17 @@ use Exception;
 
 class Application
 {
+    private $request;
+    private $route;
     private $router;
 
     private const CONTROLLER = "pages";
 
     public function __construct()
-    {;
-        $this->router = new Router();
+    {
+        $this->request = new Request();
+        $this->route = new Route();
+        $this->router = new Router($this->request, $this->route);
     }
 
     public function start(): void

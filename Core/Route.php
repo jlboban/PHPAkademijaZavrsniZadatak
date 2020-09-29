@@ -20,8 +20,17 @@ class Route
         $this->register('GET', '404', 'Pages@notFound');
         $this->register('GET', '500', 'Pages@serverError');
 
+        $this->register('GET', 'management', 'Management@management');
+        $this->register('GET', 'admin/list', 'Admin@list');
+
+        $this->register('GET', 'admin/create', 'Admin@create');
+        $this->register('POST', 'admin/createSubmit', 'Admin@createSubmit');
+
+        $this->register('POST', 'admin/editSubmit', 'Admin@editSubmit');
+
         $this->register('POST', 'register/submit', 'Register@registerSubmit');
         $this->register('POST', 'login/submit', 'Login@loginSubmit');
+
 
     }
 

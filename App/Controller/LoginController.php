@@ -30,7 +30,7 @@ class LoginController extends AbstractController
 
         if ($validator->validate($post))
         {
-            $this->redirect('#profile');
+            $this->redirect('management');
         }
         else
         {
@@ -43,6 +43,11 @@ class LoginController extends AbstractController
 
     public function logoutAction()
     {
+        if ($this->session->isLoggedIn())
+        {
+            $this->session->logout();
+        }
 
+        $this->redirect('/');
     }
 }

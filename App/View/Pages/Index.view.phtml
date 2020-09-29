@@ -3,40 +3,40 @@
 <?php include TEMPLATE_PATH . "Head.tmpl.phtml"; ?>
 <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true">
 
+<!-- Page wrapper start -->
+<div id="page-wrapper" class="page-wrapper with-navbar with-navbar-fixed-bottom">
+
     <!-- Register Modal -->
     <?php include VIEW_PATH . "Pages/Register.view.phtml"; ?>
 
     <!-- Login Modal -->
     <?php include VIEW_PATH . "Pages/Login.view.phtml"; ?>
 
-    <!-- Page wrapper start -->
-    <div id="page-wrapper" class="page-wrapper with-navbar with-navbar-fixed-bottom">
+    <!-- Sticky alerts -->
+    <div class="sticky-alerts"></div>
 
-        <!-- Sticky alerts -->
-        <div class="sticky-alerts"></div>
+    <?php include TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
 
-        <?php include TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
 
-        <!-- Content wrapper start -->
-        <div class="content-wrapper">
-
-            <div class="centered" id="logo-container">
-                <img src="/assets/eventzone_logo_gradient.png" class="img-fluid" id="logo" alt="logo">
-            </div>
-
-            <div class="container-fluid">
-                <div id="particles-js"></div>
-            </div>
-
+        <div class="centered" id="logo-container">
+            <img src="/assets/eventzone_logo_gradient.png" class="img-fluid" id="logo" alt="logo">
         </div>
-        <!-- Content wrapper end -->
 
-        <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>
+        <div class="container-fluid">
+            <div id="particles-js"></div>
+        </div>
 
     </div>
-    <!-- Page wrapper end -->
+    <!-- Content wrapper end -->
 
-    <?php include TEMPLATE_PATH . "Scripts.tmpl.phtml"; ?>
+    <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>
+
+</div>
+<!-- Page wrapper end -->
+
+<?php include TEMPLATE_PATH . "Scripts.tmpl.phtml"; ?>
 
 </body>
 </html>

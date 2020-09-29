@@ -54,6 +54,11 @@ class Session extends DataObject
         return !isset($this->currentUser);
     }
 
+    public function logout()
+    {
+        unset($_SESSION['user_id'], $this->currentUser);
+    }
+
     public function end(): void
     {
         $_SESSION = array();
