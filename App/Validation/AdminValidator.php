@@ -25,6 +25,14 @@ class AdminValidator implements ValidatorInterface
         return !array_filter($this->errors) ? $isValid = true : $isValid = false;
     }
 
+    public function validateEdit(array $data): bool
+    {
+        $this->validateName($data['first-name'], $data['last-name']);
+        $this->validateEmail($data['email']);
+
+        return !array_filter($this->errors) ? $isValid = true : $isValid = false;
+    }
+
     private function validateName(string $firstName, string $lastName): void
     {
         if (!empty($firstName) || !empty($lastName))

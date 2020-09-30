@@ -9,7 +9,7 @@ class Router
     private $request;
     private $route;
 
-    private $defaultController = "pages";
+    private $defaultController = "Pages";
     private $defaultAction = "index";
 
     private const CONTROLLER_PREFIX = "\\App\\Controller\\";
@@ -22,15 +22,36 @@ class Router
         $this->request = $request;
     }
 
-    public function match(string $requestMethod, string $url)
+    public function match(string $requestMethod, array $url)
     {
-        if (array_key_exists($url, $this->route->routes[$requestMethod]))
+        //$regex = "#{(.*?)}#";
+        $regex = '/\d+/';
+
+        if (count($url) > 3)
         {
-            $routeParts = explode('@', $this->route->routes[$requestMethod][$url]);
+            throw new RouterException("Invalid URL.");
+        }
+
+        // Wildcard match - only accept digits
+        if (isset($url[2]))
+        {
+            $param = ctype_digit($url[2]) ? $url[2] : "";
+            $wildcard = preg_replace($regex, '{id}', $param ?? "");
+            unset($url[2]);
+            $urlToIdentify = empty($url[0]) ? '/' :  implode('/', $url) . '/' . $wildcard;
+        }
+        else
+        {
+            $urlToIdentify = empty($url[0]) ? '/' : rtrim(implode("/", $url), "/");
+        }
+
+        if (array_key_exists($urlToIdentify, $this->route->routes[$requestMethod]))
+        {
+            $routeParts = explode('@', $this->route->routes[$requestMethod][$urlToIdentify]);
             $controller = $routeParts[0] ?? $this->defaultController; // Pages
             $action = $routeParts[1] ?? $this->defaultAction; // index
 
-            $this->dispatch($controller, $action);
+            $this->dispatch($controller, $action, $param ?? null);
         }
         else
         {
@@ -38,7 +59,7 @@ class Router
         }
     }
 
-    public function dispatch(string $controller, string $action): void
+    public function dispatch(string $controller, string $action, string $param = null): void
     {
         $controller = self::CONTROLLER_PREFIX . ucfirst($controller) . self::CONTROLLER_SUFFIX;
         $action = $action . self::ACTION_SUFFIX;
@@ -55,6 +76,6 @@ class Router
             throw new RouterException("Action does not exist.");
         }
 
-        $controller->$action();
+        $controller->$action($param);
     }
 }

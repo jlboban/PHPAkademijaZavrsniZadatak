@@ -67,13 +67,42 @@ class AdminController extends AbstractController
         }
     }
 
-    public function editSubmit()
+    public function editAction(string $id)
     {
+        $this->view->render("Admin/Edit", [
+            'admin' => User::getOne('id', $id)
+        ]);
+    }
+
+    public function editSubmitAction(string $id)
+    {
+        $validator = new AdminValidator();
+        $post = Input::validatePost();
+
+        if ($validator->validateEdit($post))
+        {
+            $firstName = ucfirst(strtolower($post['first-name']));
+            $lastName = ucfirst(strtolower($post['last-name']));
+            $email = $this->parseAdminMail(strtolower($post['email']));
+
+            User::update(['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email], 'id', $id);
+
+            $this->redirect('admin/list');
+        }
+        else
+        {
+            // Pass all discovered errors and valid data to session and redirect back to form
+            $this->session->setData($validator->getData());
+            $this->session->setErrors($validator->getErrors());
+            $this->redirect('admin/create');
+        }
 
     }
 
-    public function deleteAction()
+    public function deleteSubmitAction($id)
     {
+        User::delete('id', $id);
+        $this->redirect('admin/list');
 
     }
 

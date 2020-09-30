@@ -113,6 +113,25 @@ abstract class AbstractModel extends DataObject
         return $db->lastInsertId(static::getTableName());
     }
 
+    public static function update($data, string $key, string $value)
+    {
+        $tableName = static::getTableName();
+
+        $columns = [];
+        foreach (array_keys($data) as $column) {
+            $columns[] = $column . " = :{$column}";
+        }
+
+        $columnsString = implode(', ', $columns);
+
+        $sql = "UPDATE {$tableName} SET {$columnsString} WHERE {$key} = {$value}";
+
+        $db = Database::getInstance();
+
+        $statement = $db->prepare($sql);
+        $statement->execute($data);
+    }
+
     public static function delete(string $column, $value)
     {
         $tableName = static::getTableName();

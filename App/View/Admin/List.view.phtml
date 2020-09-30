@@ -6,14 +6,6 @@
 <!-- Page wrapper start -->
 <div id="page-wrapper" class="page-wrapper with-navbar with-sidebar" data-sidebar-type="default">
 
-    <?php foreach ($data['admins'] as $admin) :?>
-    <!-- Edit modal -->
-    <?php include VIEW_PATH . "Admin/Edit.view.phtml"; ?>
-
-    <!-- Delete modal -->
-    <?php include VIEW_PATH . "Admin/Delete.view.phtml"; ?>
-    <?php endforeach; ?>
-
     <!-- Sticky alerts -->
     <div class="sticky-alerts"></div>
 
@@ -46,23 +38,24 @@
 
                             <?php foreach ($data['admins'] as $admin) :?>
                             <tr>
-                                <!-- Edit Modal -->
-
                                 <th><?= $admin->getId(); ?></th>
                                 <td><?= $admin->getFirstName(); ?></td>
                                 <td><?= $admin->getLastName(); ?></td>
                                 <td><?= $admin->getEmail(); ?></td>
                                 <td>
-                                    <a href="#edit?id=<?= $admin->getId(); ?>" onclick="halfmoon.toggleModal('edit')" class="btn btn-square">
+                                    <a href="edit/<?= $admin->getId(); ?>" class="btn btn-square">
                                         <span>
                                              <i class="fa fa-edit" aria-hidden="true"></i>
                                         </span>
                                     </a>
-                                    <a href="<?= URL_ROOT . 'admin/delete?id=' . $admin->getId(); ?>" class="btn btn-square">
+
+                                    <form action="deleteSubmit/<?= $admin->getId(); ?>" method="post">
+                                        <button class="btn btn-square" name="deleteSubmit">
                                         <span>
                                              <i class="fa fa-trash" aria-hidden="true"></i>
                                         </span>
-                                    </a>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

@@ -25,8 +25,9 @@ class Route
 
         $this->register('GET', 'admin/create', 'Admin@create');
         $this->register('POST', 'admin/createSubmit', 'Admin@createSubmit');
-
-        $this->register('POST', 'admin/editSubmit', 'Admin@editSubmit');
+        $this->register('GET', 'admin/edit/{id}', 'Admin@edit');
+        $this->register('POST', 'admin/editSubmit/{id}', 'Admin@editSubmit');
+        $this->register('POST', 'admin/deleteSubmit/{id}', 'Admin@deleteSubmit');
 
         $this->register('POST', 'register/submit', 'Register@registerSubmit');
         $this->register('POST', 'login/submit', 'Login@loginSubmit');

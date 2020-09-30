@@ -1,44 +1,72 @@
-<div class="modal" id="edit" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+<!DOCTYPE html>
+<html lang="en">
+<?php include TEMPLATE_PATH . "Head.tmpl.phtml"; ?>
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
 
-            <a href="<?= URL_ROOT; ?>" class="btn close" role="button" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </a>
-            <h5 class="modal-title font-weight-bold">Edit Administrator</h5>
+<!-- Page wrapper start -->
+<div id="page-wrapper" class="page-wrapper with-navbar with-sidebar" data-sidebar-type="default">
 
-            <form action="admin/editSubmit" method="post">
+    <!-- Sticky alerts -->
+    <div class="sticky-alerts"></div>
 
-                <div class="form-row row-eq-spacing-sm">
-                    <!-- First name -->
-                    <div class="col-sm form-group <?= isset($_SESSION['errors']['name']) ? 'is-invalid' : ''; ?>">
-                        <label for="first-name" class="required font-weight-bold">First name</label>
-                        <input type="text" class="form-control"
-                               value="<?= $admin->getFirstName(); ?>"
-                               name="first-name" id="first-name" placeholder="First name" required="required">
-                        <small class="text-danger"><?= isset($_SESSION['errors']['name']) ? $_SESSION['errors']['name'] : ''; ?></small>
-                    </div>
+    <?php include ADMIN_TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
 
-                    <!-- Last name -->
-                    <div class="col-sm form-group <?= isset($_SESSION['errors']['name']) ? 'is-invalid' : ''; ?>">
-                        <label for="last-name" class="required font-weight-bold">Last name</label>
-                        <input type="text" class="form-control"
-                               value="<?= $admin->getLastName(); ?>"
-                               name="last-name" id="last-name" placeholder="Last name" required="required">
+    <?php include ADMIN_TEMPLATE_PATH . "Sidebar.tmpl.phtml"; ?>
+
+    <!-- Sidebar overlay -->
+    <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
+
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="row row-eq-spacing-lg">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <h3 class="text-center">Edit administrator</h3>
+                    <div class="content">
+                        <form action="<?= URL_ROOT . 'admin/editSubmit/' . $data['admin']->getId(); ?>" method="POST">
+
+                            <div class="form-row row-eq-spacing-sm">
+                                <!-- First name -->
+                                <div class="col-sm form-group <?= isset($_SESSION['errors']['name']) ? 'is-invalid' : ''; ?>">
+                                    <label for="first-name" class="required font-weight-bold">First name</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= $data['admin']->getFirstName(); ?>"
+                                           name="first-name" id="first-name" placeholder="First name" required="required">
+                                    <small class="text-danger"><?= isset($_SESSION['errors']['name']) ? $_SESSION['errors']['name'] : ''; ?></small>
+                                </div>
+
+                                <!-- Last name -->
+                                <div class="col-sm form-group <?= isset($_SESSION['errors']['name']) ? 'is-invalid' : ''; ?>">
+                                    <label for="last-name" class="required font-weight-bold">Last name</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= $data['admin']->getLastName(); ?>"
+                                           name="last-name" id="last-name" placeholder="Last name" required="required">
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="required font-weight-bold">Email</label>
+                                <input type="email" id="email" class="form-control" name="email" placeholder="Email" required="required"
+                                       value="<?= $data['admin']->getEmail(); ?>">
+
+                            </div>
+
+                            <input class="btn btn-primary btn-block" type="submit" value="Update">
+                        </form>
                     </div>
                 </div>
+                <div class="col-lg-3"></div>
 
-                <!-- Email -->
-                <div class="form-group">
-                    <label for="email" class="required font-weight-bold">Email</label>
-                    <input type="email" id="email" class="form-control" name="email" placeholder="Email" required="required"
-                           value="<?= $admin->getEmail(); ?>"
-                    <small class="text-danger"><?= isset($_SESSION['errors']['email']) ? $_SESSION['errors']['email'] : ''; ?></small>
-                </div>
-                <input class="btn btn-primary btn-block" type="submit" value="Update">
-
-            </form>
-
+            </div>
         </div>
     </div>
+    <!-- Content wrapper end -->
+
 </div>
+<!-- Page wrapper end -->
+<?php include TEMPLATE_PATH . "Scripts.tmpl.phtml"; ?>
+
+</body>
+</html>

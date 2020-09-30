@@ -29,7 +29,7 @@ class Application
     {
         try
         {
-            $this->router->match($this->request->getRequestMethod(), $this->request->getUrl());
+            $this->router->match($this->request->getRequestMethod(), $this->request->getUrlArray());
         }
         catch (RouterException $e)
         {
