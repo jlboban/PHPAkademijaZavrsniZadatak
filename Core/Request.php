@@ -30,7 +30,7 @@ class Request
         {
             unset($url[0]);
         }
-        
+
         return !empty($url) ? $url : [];
     }
 
