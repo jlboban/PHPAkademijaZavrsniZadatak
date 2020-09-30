@@ -2,25 +2,18 @@
 
 namespace App\Controller;
 
+use App\Model\User;
 use App\Validation\LoginValidator;
 use Core\Input;
-use Core\Session;
 
 class LoginController extends AbstractController
 {
-    private $session;
-
     public function __construct()
     {
-        $this->session = Session::getInstance();
+        parent::__construct();
 
         // Clear errors and data if they exist for next validation
-        $this->session::unsetFormData();
-    }
-
-    public function loginAction()
-    {
-        $this->redirect("#login");
+        $this->session->resetFormInput();
     }
 
     public function loginSubmitAction()
@@ -28,26 +21,42 @@ class LoginController extends AbstractController
         $validator = new LoginValidator();
         $post = Input::validatePost();
 
+        if ($this->auth->isLoggedIn())
+        {
+            return;
+        }
+
         if ($validator->validate($post))
         {
-            $this->redirect('management');
+            $user = User::getOne('email', $post['email']);
+            
+            $this->auth->login($user);
+
+            if ($user->getIsAdmin())
+            {
+                $this->redirect('management');
+            }
+            else
+            {
+                $this->redirect('#profile');
+            }
         }
         else
         {
             // Pass all discovered errors and valid data to session and redirect back to form
-            $this->session->setData($validator->getData());
-            $this->session->setErrors($validator->getErrors());
+            $this->session->setFormData($validator->getData());
+            $this->session->setFormErrors($validator->getErrors());
             $this->redirect('#login');
         }
     }
 
-    public function logoutAction()
+    public function logoutSubmitAction()
     {
-        if ($this->session->isLoggedIn())
+        if ($this->auth->isLoggedIn())
         {
-            $this->session->logout();
+            $this->auth->logout();
         }
 
-        $this->redirect('/');
+        $this->redirect('');
     }
 }

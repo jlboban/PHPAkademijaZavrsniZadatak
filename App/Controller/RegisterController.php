@@ -7,18 +7,15 @@ namespace App\Controller;
 use App\Model\User;
 use App\Validation\RegisterValidator;
 use Core\Input;
-use Core\Session;
 
 class RegisterController extends AbstractController
 {
-    private $session;
-
     public function __construct()
     {
-        $this->session = Session::getInstance();
+        parent::__construct();
 
         // Clear errors and data if they exist for next validation
-        $this->session::unsetFormData();
+        $this->session->resetFormInput();
     }
 
     public function registerAction()
@@ -53,8 +50,8 @@ class RegisterController extends AbstractController
         else
         {
             // Pass all discovered errors and valid data to session and redirect back to form
-            $this->session->setData($validator->getData());
-            $this->session->setErrors($validator->getErrors());
+            $this->session->setFormData($validator->getData());
+            $this->session->setFormErrors($validator->getErrors());
             $this->redirect('#register');
         }
     }

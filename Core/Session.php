@@ -12,9 +12,13 @@ class Session extends DataObject
 
     public function __construct(array $data = [])
     {
-        parent::__construct($data);
-        $this->start();
+        if ($userId = $_SESSION['user_id'] ?? null) {
+            $user = User::getOne('id', $userId);
+            $this->currentUser = $user->getId() ? $user : null;
+        }
     }
+
+    protected function __clone() { }
 
     public function __set($key, $value)
     {
@@ -31,43 +35,9 @@ class Session extends DataObject
         return self::$instance;
     }
 
-    public function start()
+    public function resetFormInput()
     {
-        foreach ($_SESSION as $key => $data) {
-            $k = 'set' . ucfirst($key);
-            $this->$k($data);
-        }
-
-        return $this;
-    }
-
-    public function login(User $user): void
-    {
-        if ($user->getId()) {
-            $_SESSION['user_id'] = $user->getId();
-            $this->currentUser = $user;
-        }
-    }
-
-    public function isLoggedIn(): bool
-    {
-        return !isset($this->currentUser);
-    }
-
-    public function logout()
-    {
-        unset($_SESSION['user_id'], $this->currentUser);
-    }
-
-    public function end(): void
-    {
-        $_SESSION = array();
-        session_destroy();
-    }
-
-    public static function unsetFormData()
-    {
-        unset($_SESSION['data']);
-        unset($_SESSION['errors']);
+        unset($_SESSION['formData']);
+        unset($_SESSION['formErrors']);
     }
 }

@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include TEMPLATE_PATH . "Head.tmpl.phtml"; ?>
+
 <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true">
 
 <!-- Page wrapper start -->
-<div id="page-wrapper" class="page-wrapper">
+<div id="page-wrapper" class="page-wrapper with-navbar with-navbar-fixed-bottom">
 
-    <div class="centered" id="logo-container">
-        <img src="/assets/404.png" class="img-fluid" id="logo" alt="">
-    </div>
+    <!-- Register Modal -->
+    <?php include VIEW_PATH . "Pages/Register.view.phtml"; ?>
 
-    <div class="container-fluid">
-        <div id="particles-error-js"></div>
+    <!-- Login Modal -->
+    <?php include VIEW_PATH . "Pages/Login.view.phtml"; ?>
+
+    <!-- Sticky alerts -->
+    <div class="sticky-alerts"></div>
+
+    <?php include TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
+
+    <!-- Content wrapper start -->
+    <div class="content-wrapper" id="particles-error-js">
+        <div class="centered" id="logo-container">
+            <img src="/assets/404.png" class="img-fluid" id="logo" alt="logo">
+        </div>
     </div>
+    <!-- Content wrapper end -->
+
+    <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>
 
 </div>
 <!-- Page wrapper end -->
 
 <?php include TEMPLATE_PATH . "ErrorScripts.tmpl.phtml"; ?>
+
 </body>
 </html>

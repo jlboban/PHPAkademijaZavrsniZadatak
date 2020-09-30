@@ -16,6 +16,7 @@
     align-content: center;
 }
 
+
 #logo{
     width: 80rem;
     padding-bottom: 10rem;
@@ -28,4 +29,13 @@
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
+}
+
+#error-container{
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-bottom: 50rem;
 }

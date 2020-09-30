@@ -7,21 +7,22 @@ namespace App\Controller;
 use App\Model\User;
 use App\Validation\AdminValidator;
 use Core\Input;
-use Core\Session;
 
 class AdminController extends AbstractController
 {
     private const EMAIL_DOMAIN = "@eventzone.com";
 
-    private $session;
-
     public function __construct()
     {
         parent::__construct();
-        $this->session = Session::getInstance();
+
+        if (!$this->auth->getCurrentUser()->getIsAdmin() || !$this->auth->isLoggedIn())
+        {
+            $this->redirect('/');
+        }
 
         // Clear errors and data if they exist for next validation
-        $this->session::unsetFormData();
+        $this->session->resetFormInput();
     }
 
     public function listAction()
@@ -61,8 +62,8 @@ class AdminController extends AbstractController
         else
         {
             // Pass all discovered errors and valid data to session and redirect back to form
-            $this->session->setData($validator->getData());
-            $this->session->setErrors($validator->getErrors());
+            $this->session->setFormData($validator->getData());
+            $this->session->setFormErrors($validator->getErrors());
             $this->redirect('admin/create');
         }
     }
@@ -92,8 +93,8 @@ class AdminController extends AbstractController
         else
         {
             // Pass all discovered errors and valid data to session and redirect back to form
-            $this->session->setData($validator->getData());
-            $this->session->setErrors($validator->getErrors());
+            $this->session->setFormData($validator->getData());
+            $this->session->setFormErrors($validator->getErrors());
             $this->redirect('admin/create');
         }
 
@@ -103,7 +104,6 @@ class AdminController extends AbstractController
     {
         User::delete('id', $id);
         $this->redirect('admin/list');
-
     }
 
     public function parseAdminMail($email)

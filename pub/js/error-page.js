@@ -1,20 +1,20 @@
 const particlesErrorJSON = {
     "particles": {
         "number": {
-            "value": 30,
+            "value": 20,
             "density": {
-                "enable": true,
-                "value_area": 800
+                "enable": false,
+                "value_area": 0
             }
         },
         "color": {
-            "value": "#ff4d4f"
+            "value": "#bb1414"
         },
         "shape": {
             "type": "polygon",
             "stroke": {
                 "width": 1,
-                "color": "#ff4d4f"
+                "color": "#000000"
             },
             "polygon": {
                 "nb_sides": 6
@@ -34,7 +34,7 @@ const particlesErrorJSON = {
             }
         },
         "size": {
-            "value": 7,
+            "value": 9,
             "random": false,
             "anim": {
                 "enable": false,
@@ -45,8 +45,8 @@ const particlesErrorJSON = {
         },
         "line_linked": {
             "enable": true,
-            "distance": 150,
-            "color": "#ff4d4f",
+            "distance": 200,
+            "color": "#bb1414",
             "opacity": 1,
             "width": 1
         },
