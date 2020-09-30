@@ -22,8 +22,15 @@ class Request
         $url = rtrim($_SERVER['REQUEST_URI'] ?? '', '/');
         $url = filter_var($url, FILTER_SANITIZE_URL);
         $url = explode('/', $url);
+        // Strip empty segment
         array_shift($url);
-        array_shift($url); // Removes subfolder from request
+
+        // Strip subdirectory
+        if ($url[0] === '~polaznik3')
+        {
+            unset($url[0]);
+        }
+        
         return !empty($url) ? $url : [];
     }
 
