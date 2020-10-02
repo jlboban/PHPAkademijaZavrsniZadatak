@@ -25,17 +25,29 @@ class Route
         $this->register('GET', 'login/logoutSubmit', 'Login@logoutSubmit');
 
         $this->register('GET', 'management', 'Management@management');
+
+        $this->register('GET', 'user/list', 'User@list');
+
         $this->register('GET', 'admin/list', 'Admin@list');
         $this->register('GET', 'admin/create', 'Admin@create');
-        $this->register('POST', 'admin/createSubmit', 'Admin@createSubmit');
         $this->register('GET', 'admin/edit/{id}', 'Admin@edit');
+        $this->register('POST', 'admin/createSubmit', 'Admin@createSubmit');
         $this->register('POST', 'admin/editSubmit/{id}', 'Admin@editSubmit');
         $this->register('POST', 'admin/deleteSubmit/{id}', 'Admin@deleteSubmit');
 
+        $this->register('GET', 'venue/list', 'Venue@list');
+        $this->register('GET', 'venue/create', 'Venue@create');
+        $this->register('GET', 'venue/edit/{id}', 'Venue@edit');
+        $this->register('POST', 'venue/createSubmit', 'Venue@createSubmit');
+        $this->register('POST', 'venue/editSubmit/{id}', 'Venue@editSubmit');
+        $this->register('POST', 'venue/deleteSubmit/{id}', 'Venue@deleteSubmit');
 
-
-
-
+        $this->register('GET', 'musician/list', 'Musician@list');
+        $this->register('GET', 'musician/create', 'Musician@create');
+        $this->register('GET', 'musician/edit/{id}', 'Musician@edit');
+        $this->register('POST', 'musician/createSubmit', 'Musician@createSubmit');
+        $this->register('POST', 'musician/editSubmit/{id}', 'Musician@editSubmit');
+        $this->register('POST', 'musician/deleteSubmit/{id}', 'Musician@deleteSubmit');
     }
 
     private function register(string $method = 'GET', string $url = '/', string $controller = 'Pages'): void

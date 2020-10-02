@@ -13,7 +13,7 @@ class PagesController extends AbstractController
 
     public function eventsAction(): void
     {
-        $this->view->render('Pages/Events');
+        $this->view->render('Pages/Venue');
     }
 
     public function musiciansAction(): void

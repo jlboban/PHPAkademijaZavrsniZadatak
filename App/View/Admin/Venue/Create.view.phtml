@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php include TEMPLATE_PATH . "Head.tmpl.phtml"; ?>
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
+
+<!-- Page wrapper start -->
+<div id="page-wrapper" class="page-wrapper with-navbar with-sidebar" data-sidebar-type="default">
+
+    <!-- Sticky alerts -->
+    <div class="sticky-alerts"></div>
+
+    <?php include ADMIN_TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
+
+    <?php include ADMIN_TEMPLATE_PATH . "Sidebar.tmpl.phtml"; ?>
+
+    <!-- Sidebar overlay -->
+    <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
+
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="row row-eq-spacing-lg">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <h3 class="text-center">Add new venue</h3>
+                    <div class="content">
+                        <form action="<?= URL_ROOT . "venue/createSubmit"?>" method="POST" enctype="multipart/form-data">
+
+                            <div class="form-row row-eq-spacing-sm">
+
+                                <!-- Name -->
+                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
+                                    <label for="name" class="required font-weight-bold">Name</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['name']) ? $_SESSION['form_data']['name'] : ''; ?>"
+                                           name="name" id="name" placeholder="Name" required="required">
+                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['name']) ? $_SESSION['form_errors']['name'] : ''; ?></small>
+                                </div>
+
+                                <!-- Capacity -->
+                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['capacity']) ? 'is-invalid' : ''; ?>">
+                                    <label for="capacity" class="required font-weight-bold">Capacity</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['capacity']) ? $_SESSION['form_data']['capacity'] : ''; ?>"
+                                           name="capacity" id="capacity" placeholder="Capacity" required="required">
+                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['capacity']) ? $_SESSION['form_errors']['capacity'] : ''; ?></small>
+                                </div>
+
+                            </div>
+
+                            <!-- Image -->
+                            <div class="custom-file pb-20">
+                                <input type="file" id="file-input" name="image" data-default-value="No image chosen"
+                                class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
+                                <label for="file-input" style="width: 100%; text-align: center;">Choose an image</label>
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
+                            </div>
+
+                            <div class="form-row row-eq-spacing-sm">
+
+                                <!-- Address -->
+                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['address']) ? 'is-invalid' : ''; ?>">
+                                    <label for="last-name" class="required font-weight-bold">Address</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['address']) ? $_SESSION['form_data']['address'] : ''; ?>"
+                                           name="address" id="last-name" placeholder="Address" required="required">
+                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['address']) ? $_SESSION['form_errors']['address'] : ''; ?></small>
+                                </div>
+
+                                <!-- City -->
+                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['city']) ? 'is-invalid' : ''; ?>">
+                                    <label for="city" class="required font-weight-bold">City</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['city']) ? $_SESSION['form_data']['city'] : ''; ?>"
+                                           name="city" id="city" placeholder="City" required="required">
+                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['city']) ? $_SESSION['form_errors']['city'] : ''; ?></small>
+                                </div>
+
+                            </div>
+
+                            <div class="form-row row-eq-spacing-sm">
+
+                                <!-- Postal Code -->
+                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['postcode']) ? 'is-invalid' : ''; ?>">
+                                    <label for="last-name" class="required font-weight-bold">Postal Code</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['postcode']) ? $_SESSION['form_data']['postcode'] : ''; ?>"
+                                           name="postcode" id="last-name" placeholder="Last name" required="required">
+                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['postcode']) ? $_SESSION['form_errors']['postcode'] : ''; ?></small>
+                                </div>
+
+                                <!-- Country -->
+                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['country']) ? 'is-invalid' : ''; ?>">
+                                    <label for="country" class="required font-weight-bold">Country</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['country']) ? $_SESSION['form_data']['country'] : ''; ?>"
+                                           name="country" id="country" placeholder="Country" required="required">
+                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['country']) ? $_SESSION['form_errors']['country'] : ''; ?></small>
+                                </div>
+
+                            </div>
+
+                            <input class="btn btn-primary btn-block" type="submit" value="Add">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Content wrapper end -->
+
+</div>
+<!-- Page wrapper end -->
+<?php include TEMPLATE_PATH . "Scripts.tmpl.phtml"; ?>
+
+</body>
+</html>

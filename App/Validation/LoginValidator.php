@@ -6,17 +6,14 @@ namespace App\Validation;
 
 use App\Model\User;
 
-class LoginValidator implements ValidatorInterface
+class LoginValidator extends AbstractValidator
 {
-    private $data = [];
-    private $errors = [];
-
     public function validate(array $data): bool
     {
         $this->validateEmail($data['email']);
         $this->validatePassword($data['password']);
 
-        return !array_filter($this->errors) ? $isValid = true : $isValid = false;
+        return empty($this->getErrors());
     }
 
     private function validateEmail(string $email): void
@@ -47,15 +44,5 @@ class LoginValidator implements ValidatorInterface
         {
             $this->errors['login'] = "You must enter a password.";
         }
-    }
-
-    public function getData(): array
-    {
-        return $this->data;
-    }
-
-    public function getErrors(): array
-    {
-        return $this->errors;
     }
 }

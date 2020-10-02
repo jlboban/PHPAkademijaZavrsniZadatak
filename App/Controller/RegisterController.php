@@ -13,9 +13,6 @@ class RegisterController extends AbstractController
     public function __construct()
     {
         parent::__construct();
-
-        // Clear errors and data if they exist for next validation
-        $this->session->resetFormInput();
     }
 
     public function registerAction()
@@ -25,6 +22,9 @@ class RegisterController extends AbstractController
 
     public function registerSubmitAction()
     {
+        // Clear errors and data if they exist for next validation
+        $this->session->resetFormInput();
+
         $validator = new RegisterValidator();
         $post = Input::validatePost();
 

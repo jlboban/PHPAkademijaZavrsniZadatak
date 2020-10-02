@@ -1,28 +1,18 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace App\Validation;
 
-use App\Model\User;
-
-class AdminValidator implements ValidatorInterface
+class AdminValidator extends AbstractValidator
 {
-    private $user;
-    private $data = [];
-    private $errors = [];
-
-    public function __construct()
-    {
-        $this->user = new User();
-    }
-
     public function validate(array $data): bool
     {
         $this->validateName($data['first-name'], $data['last-name']);
         $this->validateEmail($data['email']);
         $this->validatePassword($data['password']);
 
-        return !array_filter($this->errors) ? $isValid = true : $isValid = false;
+        return empty($this->getErrors());
     }
 
     public function validateEdit(array $data): bool
@@ -30,7 +20,7 @@ class AdminValidator implements ValidatorInterface
         $this->validateName($data['first-name'], $data['last-name']);
         $this->validateEmail($data['email']);
 
-        return !array_filter($this->errors) ? $isValid = true : $isValid = false;
+        return empty($this->getErrors());
     }
 
     private function validateName(string $firstName, string $lastName): void
@@ -66,20 +56,15 @@ class AdminValidator implements ValidatorInterface
             {
                 $this->errors['email'] = "Invalid email provided.";
             }
+
             if (strlen($email) < 2)
             {
                 $this->errors['email'] = "Email is too short.";
             }
-            elseif (strlen($email) > 50)
+
+            if (strlen($email) > 50)
             {
                 $this->errors['email'] = "Email is too long.";
-            }
-            else
-            {
-                if ($this->user->getEmail())
-                {
-                    $this->errors['email'] = "Email is already being used.";
-                }
             }
 
             if (empty($this->errors['email']))
@@ -122,15 +107,5 @@ class AdminValidator implements ValidatorInterface
         {
             $this->errors['password'] = "You must enter a password.";
         }
-    }
-
-    public function getData(): array
-    {
-        return $this->data;
-    }
-
-    public function getErrors(): array
-    {
-        return $this->errors;
     }
 }

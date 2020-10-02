@@ -6,17 +6,8 @@ namespace App\Validation;
 
 use App\Model\User;
 
-class RegisterValidator implements ValidatorInterface
+class RegisterValidator extends AbstractValidator
 {
-    private $user;
-    private $data = [];
-    private $errors = [];
-
-    public function __construct()
-    {
-        $this->user = new User();
-    }
-
     public function validate(array $data): bool
     {
         $this->validateName($data['first-name'], $data['last-name']);
@@ -24,7 +15,7 @@ class RegisterValidator implements ValidatorInterface
         $this->validatePassword($data['password']);
         $this->validateConfirmPassword($data['password'], $data['confirm-password']);
 
-        return !array_filter($this->errors) ? $isValid = true : $isValid = false;
+        return empty($this->getErrors());
     }
 
     private function validateName(string $firstName, string $lastName): void
@@ -70,7 +61,7 @@ class RegisterValidator implements ValidatorInterface
             }
             else
             {
-                if ($this->user->getEmail())
+                if (User::isEmailAvailable($email))
                 {
                     $this->errors['email'] = "Email is already being used.";
                 }
@@ -131,15 +122,5 @@ class RegisterValidator implements ValidatorInterface
         {
             $this->errors['confirm-password'] = "Please confirm password.";
         }
-    }
-
-    public function getData(): array
-    {
-        return $this->data;
-    }
-
-    public function getErrors(): array
-    {
-        return $this->errors;
     }
 }

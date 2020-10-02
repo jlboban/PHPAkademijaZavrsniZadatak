@@ -16,13 +16,10 @@ class AdminController extends AbstractController
     {
         parent::__construct();
 
-        if (!$this->auth->getCurrentUser()->getIsAdmin() || !$this->auth->isLoggedIn())
+        if ($this->auth->getCurrentUser() === null || !$this->auth->getCurrentUser()->isAdmin() || !$this->auth->isLoggedIn())
         {
-            $this->redirect('/');
+            $this->redirect('');
         }
-
-        // Clear errors and data if they exist for next validation
-        $this->session->resetFormInput();
     }
 
     public function listAction()
@@ -35,12 +32,18 @@ class AdminController extends AbstractController
     public function createAction()
     {
         $this->view->render("Admin/Create");
+
+        // Clear errors and data if they exist for next validation
+        $this->session->resetFormInput();
     }
 
     public function createSubmitAction()
     {
         $validator = new AdminValidator();
         $post = Input::validatePost();
+
+        // Clear errors and data if they exist for next validation
+        $this->session->resetFormInput();
 
         if ($validator->validate($post))
         {
@@ -73,12 +76,18 @@ class AdminController extends AbstractController
         $this->view->render("Admin/Edit", [
             'admin' => User::getOne('id', $id)
         ]);
+
+        // Clear errors and data if they exist for next validation
+        $this->session->resetFormInput();
     }
 
     public function editSubmitAction(string $id)
     {
         $validator = new AdminValidator();
         $post = Input::validatePost();
+
+        // Clear errors and data if they exist for next validation
+        $this->session->resetFormInput();
 
         if ($validator->validateEdit($post))
         {
@@ -95,7 +104,8 @@ class AdminController extends AbstractController
             // Pass all discovered errors and valid data to session and redirect back to form
             $this->session->setFormData($validator->getData());
             $this->session->setFormErrors($validator->getErrors());
-            $this->redirect('admin/create');
+
+            $this->redirect('admin/edit/' . $id);
         }
 
     }
