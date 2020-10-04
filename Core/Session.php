@@ -37,7 +37,7 @@ class Session extends DataObject
 
     public function resetFormInput()
     {
-        unset($_SESSION['formData']);
-        unset($_SESSION['formErrors']);
+        unset($_SESSION['form_data']);
+        unset($_SESSION['form_errors']);
     }
 }

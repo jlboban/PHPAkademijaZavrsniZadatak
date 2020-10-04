@@ -11,16 +11,6 @@ class PagesController extends AbstractController
         $this->view->render('Pages/Index');
     }
 
-    public function eventsAction(): void
-    {
-        $this->view->render('Pages/Venue');
-    }
-
-    public function musiciansAction(): void
-    {
-        $this->view->render('Pages/Musicians');
-    }
-
     public function notFoundAction(): void
     {
         $this->view->render('Pages/404');

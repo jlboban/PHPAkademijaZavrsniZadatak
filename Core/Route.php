@@ -37,6 +37,8 @@ class Route
 
         $this->register('GET', 'venue/list', 'Venue@list');
         $this->register('GET', 'venue/create', 'Venue@create');
+        $this->register('GET', 'venue/view', 'Venue@view');
+        $this->register('GET', 'venue/view/{id}', 'Venue@view');
         $this->register('GET', 'venue/edit/{id}', 'Venue@edit');
         $this->register('POST', 'venue/createSubmit', 'Venue@createSubmit');
         $this->register('POST', 'venue/editSubmit/{id}', 'Venue@editSubmit');
@@ -44,10 +46,22 @@ class Route
 
         $this->register('GET', 'musician/list', 'Musician@list');
         $this->register('GET', 'musician/create', 'Musician@create');
+        $this->register('GET', 'musician/view', 'Musician@view');
+        $this->register('GET', 'musician/view/{id}', 'Musician@view');
         $this->register('GET', 'musician/edit/{id}', 'Musician@edit');
         $this->register('POST', 'musician/createSubmit', 'Musician@createSubmit');
         $this->register('POST', 'musician/editSubmit/{id}', 'Musician@editSubmit');
         $this->register('POST', 'musician/deleteSubmit/{id}', 'Musician@deleteSubmit');
+        $this->register('POST','musician/async', 'Musician@asyncMusician');
+
+        $this->register('GET', 'event/list', 'Event@list');
+        $this->register('GET', 'event/create', 'Event@create');
+        $this->register('GET', 'event/view', 'Event@view');
+        $this->register('GET', 'event/view/{id}', 'Event@view');
+        $this->register('GET', 'event/edit/{id}', 'Event@edit');
+        $this->register('POST', 'event/createSubmit', 'Event@createSubmit');
+        $this->register('POST', 'event/editSubmit/{id}', 'Event@editSubmit');
+        $this->register('POST', 'event/deleteSubmit/{id}', 'Event@deleteSubmit');
     }
 
     private function register(string $method = 'GET', string $url = '/', string $controller = 'Pages'): void

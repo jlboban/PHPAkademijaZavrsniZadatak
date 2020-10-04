@@ -371,7 +371,7 @@ function halfmoonOnDOMContentLoaded() {
 
             // Call the click handler method to handle any logic set by the user in their projects to handle clicks
             halfmoon.clickHandler(eventCopy);
-        }, 
+        },
         false
     );
 
@@ -436,7 +436,7 @@ function halfmoonOnDOMContentLoaded() {
                     elem.closest(".dropdown").classList.remove("show");
                     event.preventDefault();
                 }
-                // Close modal (if one is open, and if no dropdown menu is open) when [esc] key is pressed
+                    // Close modal (if one is open, and if no dropdown menu is open) when [esc] key is pressed
                 // Conditional on dropdowns so that dropdowns on modals can be closed with the keyboard without closing the modal
                 else {
                     // Hash exists, so we check if it belongs to a modal

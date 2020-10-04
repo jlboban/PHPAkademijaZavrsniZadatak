@@ -4,12 +4,14 @@ declare(strict_types = 1);
 
 namespace App\Validation;
 
-class MusicianValidator extends AbstractValidator
+class EventValidator extends AbstractValidator
 {
-    function validate(array $data): bool
+    public function validate(array $data)
     {
         $this->validateName($data['name']);
         $this->validateDescription($data['description']);
+        $this->validateEventMusician($data['musician']);
+        $this->validateEventVenue($data['venue']);
 
         return empty($this->getErrors());
     }
@@ -24,12 +26,12 @@ class MusicianValidator extends AbstractValidator
             }
             elseif (strlen($name) > 50)
             {
-                $this->errors['name'] = "Musician name is too long.";
+                $this->errors['name'] = "Event name is too long.";
             }
         }
         else
         {
-            $this->errors['name'] = "You must provide a musician name.";
+            $this->errors['name'] = "You must provide an event name.";
         }
 
         if (empty($this->errors['name']))
@@ -48,6 +50,22 @@ class MusicianValidator extends AbstractValidator
         if (empty($this->errors['description']))
         {
             $this->data['description'] = $description;
+        }
+    }
+
+    private function validateEventMusician($eventMusician)
+    {
+        if (empty($eventMusician))
+        {
+            $this->errors['musician'] = "You must select a musician.";
+        }
+    }
+
+    private function validateEventVenue($eventVenue)
+    {
+        if (empty($eventVenue))
+        {
+            $this->errors['venue'] = "You must select a venue.";
         }
     }
 }

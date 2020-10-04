@@ -4,12 +4,12 @@ declare(strict_types = 1);
 
 namespace App\Controller;
 
-use App\Model\Musician;
+use App\Model\Venue;
 use App\Validation\ImageValidator;
-use App\Validation\MusicianValidator;
+use App\Validation\VenueValidator;
 use Core\Input;
 
-class MusicianController extends AbstractController
+class VenueController extends AbstractController
 {
     public function __construct()
     {
@@ -23,8 +23,8 @@ class MusicianController extends AbstractController
             $this->redirect('');
         }
 
-        $this->view->render("Admin/Musician/List", [
-            'musicians' => Musician::getAll()
+        $this->view->render("Admin/Venue/List", [
+            'venues' => Venue::getAll()
         ]);
     }
 
@@ -32,18 +32,18 @@ class MusicianController extends AbstractController
     {
         if ($id)
         {
-            $musician = Musician::getOne('id', $id);
+            $venue = Venue::getOne('id', $id);
 
-            $this->view->render("Pages/Musician", [
-                'musician' => $musician
+            $this->view->render("Pages/Venue", [
+                'venue' => $venue
             ]);
         }
         else
         {
-            $musicians = Musician::getAll();
+            $venues = Venue::getAll();
 
-            $this->view->render("Pages/Musicians", [
-                'musicians' => $musicians
+            $this->view->render("Pages/Venues", [
+                'venues' => $venues
             ]);
         }
     }
@@ -55,7 +55,7 @@ class MusicianController extends AbstractController
             $this->redirect('');
         }
 
-        $this->view->render("Admin/Musician/Create");
+        $this->view->render("Admin/Venue/Create");
 
         // Clear errors and data if they exist for next validation
         $this->session->resetFormInput();
@@ -68,19 +68,32 @@ class MusicianController extends AbstractController
             $this->redirect('');
         }
 
-        $musicianValidator = new MusicianValidator();
+        $venueValidator = new VenueValidator();
         $imageValidator = new ImageValidator();
 
         $post = Input::validatePost();
         $files = Input::validateFiles();
 
+//        array (size=1)
+//          'image' =>
+//            array (size=5)
+//              'name' => string 'logo.png' (length=8)
+//              'type' => string 'image/png' (length=9)
+//              'tmp_name' => string '/tmp/phpS8FD3I' (length=14)
+//              'error' => string '0' (length=1)
+//              'size' => string '7594' (length=4)
+
         // Clear errors and data if they exist for next validation
         $this->session->resetFormInput();
 
-        if ($musicianValidator->validate($post) && $imageValidator->validate($files))
+        if ($venueValidator->validate($post) && $imageValidator->validate($files))
         {
             $name = ucfirst(strtolower($post['name']));
-            $description = $post['description'];
+            $capacity = $post['capacity'];
+            $address = ucfirst(strtolower($post['address']));
+            $city = ucfirst(strtolower($post['city']));
+            $postcode = $post['postcode'];
+            $country = ucfirst(strtolower($post['country']));
 
             $type = $files['image']['type'];
             $tmpName = $files['image']['tmp_name'];
@@ -88,21 +101,25 @@ class MusicianController extends AbstractController
 
             if (move_uploaded_file($tmpName, $path))
             {
-                Musician::insert([
+                Venue::insert([
                     'name' => $name,
-                    'description' => $description,
-                    'image' => $path
+                    'capacity' => $capacity,
+                    'image' => $path,
+                    'address' => $address,
+                    'city' => $city,
+                    'postcode' => $postcode,
+                    'country' => $country
                 ]);
 
-                $this->redirect('musician/list');
+                $this->redirect('venue/list');
             }
         }
         else
         {
             // Pass all discovered errors and valid data to session and redirect back to form
-            $this->session->setFormData(array_merge($musicianValidator->getData(), $imageValidator->getData()));
-            $this->session->setFormErrors(array_merge($musicianValidator->getErrors(), $imageValidator->getErrors()));
-            $this->redirect('musician/create');
+            $this->session->setFormData(array_merge($venueValidator->getData(), $imageValidator->getData()));
+            $this->session->setFormErrors(array_merge($venueValidator->getErrors(), $imageValidator->getErrors()));
+            $this->redirect('venue/create');
         }
     }
 
@@ -113,8 +130,8 @@ class MusicianController extends AbstractController
             $this->redirect('');
         }
 
-        $this->view->render("Admin/Musician/Edit", [
-            'musician' => Musician::getOne('id', $id)
+        $this->view->render("Admin/Venue/Edit", [
+            'venue' => Venue::getOne('id', $id)
         ]);
 
         // Clear errors and data if they exist for next validation
@@ -128,7 +145,7 @@ class MusicianController extends AbstractController
             $this->redirect('');
         }
 
-        $musicianValidator = new MusicianValidator();
+        $venueValidator = new VenueValidator();
         $imageValidator = new ImageValidator();
 
         $post = Input::validatePost();
@@ -137,10 +154,14 @@ class MusicianController extends AbstractController
         // Clear errors and data if they exist for next validation
         $this->session->resetFormInput();
 
-        if ($musicianValidator->validate($post) && $imageValidator->validate($files))
+        if ($venueValidator->validate($post) && $imageValidator->validate($files))
         {
             $name = ucfirst(strtolower($post['name']));
-            $description = $post['description'];
+            $capacity = $post['capacity'];
+            $address = ucfirst(strtolower($post['address']));
+            $city = ucfirst(strtolower($post['city']));
+            $postcode = $post['postcode'];
+            $country = ucfirst(strtolower($post['country']));
 
             $type = $files['image']['type'];
             $tmpName = $files['image']['tmp_name'];
@@ -148,28 +169,31 @@ class MusicianController extends AbstractController
 
             if (move_uploaded_file($tmpName, $path))
             {
-                $oldImage = Musician::getOne('id', $id)->getImage();
-
+                $oldImage = Venue::getOne('id', $id)->getImage();
                 if ($oldImage != null)
                 {
                     unlink($oldImage);
                 }
 
-                Musician::update([
+                Venue::update([
                     'name' => $name,
-                    'description' => $description,
-                    'image' => $path
+                    'capacity' => $capacity,
+                    'image' => $path,
+                    'address' => $address,
+                    'city' => $city,
+                    'postcode' => $postcode,
+                    'country' => $country
                 ], 'id', $id);
 
-                $this->redirect('musician/list');
+                $this->redirect('venue/list');
             }
         }
         else
         {
             // Pass all discovered errors and valid data to session and redirect back to form
-            $this->session->setFormData(array_merge($musicianValidator->getData(), $imageValidator->getData()));
-            $this->session->setFormErrors(array_merge($musicianValidator->getErrors(), $imageValidator->getErrors()));
-            $this->redirect('musician/create');
+            $this->session->setFormData(array_merge($venueValidator->getData(), $imageValidator->getData()));
+            $this->session->setFormErrors(array_merge($venueValidator->getErrors(), $imageValidator->getErrors()));
+            $this->redirect('venue/create');
         }
     }
 
@@ -180,8 +204,13 @@ class MusicianController extends AbstractController
             $this->redirect('');
         }
 
-        Musician::delete('id', $id);
-        $this->redirect('musician/list');
+        Venue::delete('id', $id);
+        $this->redirect('venue/list');
+    }
+
+    public function asyncVenueAction(): string
+    {
+        return json_encode(Venue::getAll());
     }
 
     private function getImagePath(string $name, string $type) : string
@@ -190,7 +219,7 @@ class MusicianController extends AbstractController
         $ext = strtolower(end($ext));
 
         $name = $name . uniqid('_', false) . '.' . $ext;
-        $path = "assets" . DS . "musicians" . DS;
+        $path = "assets" . DS . "venues" . DS;
         return $path . $name;
     }
 }

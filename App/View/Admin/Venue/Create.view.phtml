@@ -49,9 +49,10 @@
                             </div>
 
                             <!-- Image -->
+                            <label class="font-weight-bold required">Image</label>
                             <div class="custom-file pb-20">
                                 <input type="file" id="file-input" name="image" data-default-value="No image chosen"
-                                class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
+                                       class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
                                 <label for="file-input" style="width: 100%; text-align: center;">Choose an image</label>
                                 <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
                             </div>

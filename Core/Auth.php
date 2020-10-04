@@ -52,6 +52,6 @@ class Auth
 
     public function getCurrentUser(): ?User
     {
-        return $this->currentUser;
+        return $this->currentUser ?? null;
     }
 }

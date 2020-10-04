@@ -21,4 +21,18 @@ class Input
 
         return $post;
     }
+
+    public static function validateFiles() : ?array
+    {
+        var_dump($_FILES);
+
+        if(!empty($_FILES) && $_FILES != null)
+        {
+            return filter_var_array($_FILES, FILTER_SANITIZE_STRING);
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

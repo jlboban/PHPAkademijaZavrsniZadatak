@@ -4,23 +4,32 @@
         <div class="navbar-content">
 
         </div>
-
         <!-- Navbar brand -->
         <a href="<?= URL_ROOT; ?>" class="navbar-brand">
             <img src="/assets/eventzone_logo_gradient.png" alt="logo">
         </a>
 
-        <a href="<?= URL_ROOT; ?>events">
-            <button class="btn mr-10 text-dark font-weight-bold" type="button"
+        <a href="<?= URL_ROOT; ?>event/view">
+            <button class="btn btn-sm mr-10 text-dark font-weight-bold" type="button"
                     style="background: linear-gradient(to left, #ff8c2e, #ff4500); border: none;">
+                <i class="fa fa-calendar-alt" aria-hidden="true"></i>
                 Events
             </button>
         </a>
 
-        <a href="<?= URL_ROOT; ?>musicians">
-            <button class="btn text-dark font-weight-bold" type="button"
+        <a href="<?= URL_ROOT; ?>musician/view">
+            <button class="btn btn-sm mr-10 text-dark font-weight-bold" type="button"
                     style="background: linear-gradient(to right, #ff8c2e, #ff4500); border: none;">
+                <i class="fa fa-music" aria-hidden="true"></i>
                 Musicians
+            </button>
+        </a>
+
+        <a href="<?= URL_ROOT; ?>venue/view">
+            <button class="btn btn-sm text-dark font-weight-bold" type="button"
+                    style="background: linear-gradient(to right, #ff8c2e, #ff4500); border: none;">
+                <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                Venues
             </button>
         </a>
     </div>
@@ -51,8 +60,5 @@
             </div>
         <?php endif ?>
     </div>
-
-
-
 </nav>
 <!-- Navbar end -->

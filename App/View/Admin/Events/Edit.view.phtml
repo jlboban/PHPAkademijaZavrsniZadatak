@@ -22,46 +22,46 @@
             <div class="row row-eq-spacing-lg">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6">
-                    <h3 class="text-center">Edit administrator</h3>
+                    <h3 class="text-center">Add new musician</h3>
                     <div class="content">
-                        <form action="<?= URL_ROOT . 'admin/editSubmit/' . $data['admin']->getId(); ?>" method="POST">
+                        <form action="<?= URL_ROOT . "musician/editSubmit/" . $data['musician']->getId(); ?>" method="POST" enctype="multipart/form-data">
 
-                            <div class="form-row row-eq-spacing-sm">
-                                <!-- First name -->
-                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
-                                    <label for="first-name" class="required font-weight-bold">First name</label>
-                                    <input type="text" class="form-control"
-                                           value="<?= $data['admin']->getFirstName(); ?>"
-                                           name="first-name" id="first-name" placeholder="First name" required="required">
-                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['name']) ? $_SESSION['form_errors']['name'] : ''; ?></small>
-                                </div>
-
-                                <!-- Last name -->
-                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
-                                    <label for="last-name" class="required font-weight-bold">Last name</label>
-                                    <input type="text" class="form-control"
-                                           value="<?= $data['admin']->getLastName(); ?>"
-                                           name="last-name" id="last-name" placeholder="Last name" required="required">
-                                </div>
+                            <!-- Name -->
+                            <div class="form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
+                                <label for="name" class="required font-weight-bold">Name</label>
+                                <input type="text" class="form-control"
+                                       value="<?= $data['musician']->getName(); ?>"
+                                       name="name" id="name" placeholder="Name" required="required">
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['name']) ? $_SESSION['form_errors']['name'] : ''; ?></small>
                             </div>
 
-                            <!-- Email -->
-                            <div class="form-group">
-                                <label for="email" class="required font-weight-bold">Email</label>
-                                <input type="email" id="email" class="form-control" name="email" placeholder="Email" required="required"
-                                       value="<?= $data['admin']->getEmail(); ?>">
+                            <!-- Description -->
+                            <div class="form-group <?= isset($_SESSION['form_errors']['description']) ? 'is-invalid' : ''; ?>">
+                                    <textarea class="form-control alt-dm" name="description" style="min-height: 30rem;">
+                                        <?= $data['musician']->getDescription(); ?>
+                                    </textarea>
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['description']) ? $_SESSION['form_errors']['description'] : ''; ?></small>
                             </div>
-
-                            <input class="btn btn-primary btn-block" type="submit" value="Update">
-                        </form>
                     </div>
-                </div>
-                <div class="col-lg-3"></div>
 
+                    <!-- Image -->
+                    <div class="custom-file pb-20">
+                        <input type="file" id="file-input" name="image" data-default-value="No image chosen"
+                               class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
+                        <label for="file-input">Choose an image</label>
+                        <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
+                    </div>
+
+                    <input class="btn btn-primary btn-block" type="submit" value="Add">
+                    </form>
+                </div>
             </div>
+            <div class="col-lg-3"></div>
+
         </div>
     </div>
-    <!-- Content wrapper end -->
+</div>
+<!-- Content wrapper end -->
 
 </div>
 <!-- Page wrapper end -->

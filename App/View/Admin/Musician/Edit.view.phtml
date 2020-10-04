@@ -22,7 +22,7 @@
             <div class="row row-eq-spacing-lg">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6">
-                    <h3 class="text-center">Add new musician</h3>
+                    <h3 class="text-center">Edit musician</h3>
                     <div class="content">
                         <form action="<?= URL_ROOT . "musician/editSubmit/" . $data['musician']->getId(); ?>" method="POST" enctype="multipart/form-data">
 
@@ -36,32 +36,33 @@
                             </div>
 
                             <!-- Description -->
+                            <label for="description" class="required font-weight-bold">Description</label>
                             <div class="form-group <?= isset($_SESSION['form_errors']['description']) ? 'is-invalid' : ''; ?>">
                                     <textarea class="form-control alt-dm" name="description" style="min-height: 30rem;">
                                         <?= $data['musician']->getDescription(); ?>
                                     </textarea>
                                 <small class="text-danger"><?= isset($_SESSION['form_errors']['description']) ? $_SESSION['form_errors']['description'] : ''; ?></small>
-                                </div>
                             </div>
-
-                            <!-- Image -->
-                            <div class="custom-file pb-20">
-                                <input type="file" id="file-input" name="image" data-default-value="No image chosen"
-                                       class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
-                                <label for="file-input">Choose an image</label>
-                                <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
-                            </div>
-
-                            <input class="btn btn-primary btn-block" type="submit" value="Add">
-                        </form>
                     </div>
-                </div>
-                <div class="col-lg-3"></div>
 
+                    <!-- Image -->
+                    <div class="custom-file pb-20">
+                        <input type="file" id="file-input" name="image" data-default-value="No image chosen"
+                               class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
+                        <label for="file-input">Choose an image</label>
+                        <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
+                    </div>
+
+                    <input class="btn btn-primary btn-block" type="submit" value="Add">
+                    </form>
+                </div>
             </div>
+            <div class="col-lg-3"></div>
+
         </div>
     </div>
-    <!-- Content wrapper end -->
+</div>
+<!-- Content wrapper end -->
 
 </div>
 <!-- Page wrapper end -->

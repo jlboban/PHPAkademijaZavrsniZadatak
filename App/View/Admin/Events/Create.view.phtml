@@ -22,46 +22,99 @@
             <div class="row row-eq-spacing-lg">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6">
-                    <h3 class="text-center">Add new administrator</h3>
+                    <h3 class="text-center">Add new event</h3>
                     <div class="content">
-                        <form action="<?= URL_ROOT . "admin/createSubmit"?>" method="POST">
+                        <form action="<?= URL_ROOT . "event/createSubmit"?>" method="POST" enctype="multipart/form-data">
 
-                            <div class="form-row row-eq-spacing-sm">
+                            <!-- Name -->
+                            <div class="col-sm form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
+                                <label for="name" class="required font-weight-bold">Name</label>
+                                <input type="text" class="form-control"
+                                       value="<?= isset($_SESSION['form_data']['name']) ? $_SESSION['form_data']['name'] : ''; ?>"
+                                       name="name" id="name" placeholder="Name" required="required">
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['name']) ? $_SESSION['form_errors']['name'] : ''; ?></small>
+                            </div>
 
-                                <!-- First name -->
-                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
-                                    <label for="first-name" class="required font-weight-bold">First name</label>
-                                    <input type="text" class="form-control"
-                                           value="<?= isset($_SESSION['form_data']['firstName']) ? $_SESSION['form_data']['firstName'] : ''; ?>"
-                                           name="first-name" id="first-name" placeholder="First name" required="required">
-                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['name']) ? $_SESSION['form_errors']['name'] : ''; ?></small>
+                            <!-- Description -->
+                            <div class="form-group <?= isset($_SESSION['form_errors']['description']) ? 'is-invalid' : ''; ?>">
+                                <label class="font-weight-bold required">Description</label>
+                                <label style="width: 100%">
+                                    <textarea class="form-control alt-dm" name="description" style="min-height: 15rem;"></textarea>
+                                </label>
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['description']) ? $_SESSION['form_errors']['description'] : ''; ?></small>
+                            </div>
+
+                            <!-- Start Date -->
+                            <h5 class="font-weight-bold">Start</h5>
+                            <div class="form-row">
+                                <div class="col-6 pr-20">
+                                    <div class="form-group <?= isset($_SESSION['form_errors']['start-date']) ? 'is-invalid' : ''; ?>">
+                                        <label for="start-date" class="required font-weight-bold">Day</label>
+                                        <input class="form-control" type="date" id="start-date" name="start-date">
+                                    </div>
                                 </div>
 
-                                <!-- Last name -->
-                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
-                                    <label for="last-name" class="required font-weight-bold">Last name</label>
-                                    <input type="text" class="form-control"
-                                           value="<?= isset($_SESSION['form_data']['lastName']) ? $_SESSION['form_data']['lastName'] : ''; ?>"
-                                           name="last-name" id="last-name" placeholder="Last name" required="required">
+                                <!-- Start Time -->
+                                <div class="col-6 pl-20">
+                                    <div class="form-group <?= isset($_SESSION['form_errors']['start-time']) ? 'is-invalid' : ''; ?>">
+                                        <label for="start-time" class="required font-weight-bold">Time</label>
+                                        <input class="form-control" type="time" id="start-time" name="start-time">
+                                        <small>H : m - AM | PM (Firefox)</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- End Date -->
+                            <h5 class="font-weight-bold">End</h5>
+                            <div class="form-row">
+                                <div class="col-6 pr-20">
+                                    <div class="form-group <?= isset($_SESSION['form_errors']['end-date']) ? 'is-invalid' : ''; ?>">
+                                        <label for="end-date" class="required font-weight-bold">Day</label>
+                                        <input class="form-control" type="date" id="end-date" name="end-date">
+                                    </div>
                                 </div>
 
+                                <!-- End Time -->
+                                <div class="col-6 pl-20">
+                                    <div class="form-group <?= isset($_SESSION['form_errors']['end-time']) ? 'is-invalid' : ''; ?>">
+                                        <label for="end-time" class="required font-weight-bold">Time</label>
+                                        <input class="form-control" type="time" id="end-time" name="end-time">
+                                        <small>H : m - AM | PM (Firefox)</small>
+                                    </div>
+
+                                </div>
                             </div>
 
-                            <!-- Email -->
-                            <div class="form-group">
-                                <label for="email" class="required font-weight-bold">Email</label>
-                                <input type="email" id="email" class="form-control" name="email" placeholder="Email" required="required"
-                                       value="<?= isset($_SESSION['form_data']['email']) ? $_SESSION['form_data']['email'] : ''; ?>">
-                                <small class="text-danger"><?= isset($_SESSION['form_errors']['email']) ? $_SESSION['form_errors']['email'] : ''; ?></small>
+                            <!-- Musician -->
+                            <div class="form-group <?= isset($_SESSION['form_errors']['musician']) ? 'is-invalid' : ''; ?>">
+                                <label class="font-weight-bold required">Musician</label>
+                                <select class="form-control" name="musician" required="required">
+                                    <option value="" selected="selected" disabled="disabled">Select a musician</option>
+                                    <?php foreach($data['musicians'] as $musician): ?>
+                                        <option value="<?= $musician->getId(); ?>"><?= $musician->getName(); ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
 
-                            <!-- Password -->
-                            <div class="form-group">
-                                <label for="password" class="required">Password</label>
-                                <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="required">
-                                <small class="text-danger"><?= isset($_SESSION['form_errors']['password']) ? $_SESSION['form_errors']['password'] : ''; ?></small>
+                            <!-- Venue -->
+                            <label class="font-weight-bold required">Venue</label>
+                            <div class="form-group <?= isset($_SESSION['form_errors']['venue']) ? 'is-invalid' : ''; ?>">
+                                <select class="form-control" id="select-1" name="venue">
+                                    <option value="" selected="selected" disabled="disabled">Select a venue</option>
+                                    <?php foreach($data['venues'] as $venue): ?>
+                                        <option value="<?= $venue->getId(); ?>"><?= $venue->getName(); ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
 
+                            <!-- Image -->
+                            <label class="font-weight-bold required">Image</label>
+                            <div class="custom-file pb-20">
+                                <input type="file" id="file-input" name="image" data-default-value="No image chosen"
+                                       class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
+                                <label for="file-input" style="width: 100%; text-align: center;">Choose an image</label>
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
+                            </div>
 
                             <input class="btn btn-primary btn-block" type="submit" value="Add">
                         </form>

@@ -13,11 +13,33 @@
 
     <!-- Content wrapper start -->
     <div class="content-wrapper">
+
         <div class="container-fluid">
 
+            <div class="row">
+                <?php foreach ($data['musicians'] as $musician): ?>
+                    <div class="col-sm-4 col-sm-auto">
+                        <div class="mw-full"> <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
+                            <div class="card p-0"> <!-- p-0 = padding: 0 -->
+                                <img src="/assets/eventzone_logo_gradient.png" class="img-fluid rounded-top" alt="Venue image">
+                                <div class="content">
+                                    <h2 class="content-title">
+                                        <?= $musician->getName(); ?>
+                                    </h2>
+
+                                    <div class="text-right"> <!-- text-right = text-align: right -->
+                                        <a href="<?= URL_ROOT; ?>musician/view/<?= $musician->getId(); ?>" class="btn">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
+
+        <!-- Content wrapper end -->
     </div>
-    <!-- Content wrapper end -->
 
     <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>
 

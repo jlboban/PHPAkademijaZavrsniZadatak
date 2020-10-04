@@ -24,35 +24,29 @@
         <div class="container-fluid">
 
             <div class="row">
-                <?php foreach ($data['events'] as $event): ?>
+                <?php foreach ($data['venues'] as $venue): ?>
                     <div class="col-sm-4 col-sm-auto">
                         <div class="mw-full"> <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
                             <div class="card p-0"> <!-- p-0 = padding: 0 -->
                                 <img src="/assets/eventzone_logo_gradient.png" class="img-fluid rounded-top" alt="Venue image">
                                 <div class="content">
-                                    <h2 class="content-title font-weight-bolder">
-                                        <?= $event->getName(); ?>
+                                    <h2 class="content-title">
+                                        <?= $venue->getName(); ?>
                                     </h2>
-                                    <h3 class="content-title font-weight-bold">
-                                        <?php foreach ($event->getEventMusicians($event->getId()) as $musician): ?>
-                                            <?= " | " . $musician->getData()['name']; ?>
-                                        <?php endforeach ?>
-                                    </h3>
                                     <p class="text-muted">
-                                        <?= $event->getStartDate() . " | " . substr($event->getStartTime(),0,-3); ?>
+                                        <i class="fas fa-user"></i> <?= $venue->getCapacity(); ?>
+                                    </p>
+                                    <p class="text-muted">
+                                        <?= $venue->getAddress() . ", " . $venue->getPostcode(); ?>
+                                        <?= $venue->getCity(); ?>
+                                    </p>
+                                    <p class="text-muted">
+                                        <?= $venue->getCountry(); ?>
                                     </p>
 
-                                    <div class="text-center"> <!-- text-right = text-align: right -->
-                                        <a href="<?= URL_ROOT; ?>event/view/<?= $event->getId(); ?>" class="btn btn-sm text-dark font-weight-bold">
-                                            <i class="fas fa-money-check-alt"></i>
-                                            Book event
-                                        </a>
-                                        <a href="<?= URL_ROOT; ?>event/view/<?= $event->getId(); ?>" class="btn btn-sm text-dark font-weight-bold">
-                                            <i class="fas fa-bars"></i>
-                                            Details
-                                        </a>
+                                    <div class="text-right"> <!-- text-right = text-align: right -->
+                                        <a href="<?= URL_ROOT; ?>venue/view/<?= $venue->getId(); ?>" class="btn">Details</a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -61,7 +55,7 @@
             </div>
         </div>
 
-        <!-- Content wrapper end -->
+    <!-- Content wrapper end -->
     </div>
 
     <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>
