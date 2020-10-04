@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php include TEMPLATE_PATH . "Head.tmpl.phtml"; ?>
+
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true">
+
+<!-- Page wrapper start -->
+<div id="page-wrapper" class="page-wrapper with-navbar with-navbar-fixed-bottom">
+
+    <!-- Register Modal -->
+    <?php include VIEW_PATH . "Pages/Register.view.phtml"; ?>
+
+    <!-- Login Modal -->
+    <?php include VIEW_PATH . "Pages/Login.view.phtml"; ?>
+
+    <!-- Sticky alerts -->
+    <div class="sticky-alerts"></div>
+
+    <?php include TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
+
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="row row-eq-spacing-lg">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <h1 class="text-center">Account settings</h1>
+                    <div class="content">
+                        <form action="<?= URL_ROOT; ?><?= "user/editSubmit/" . $data['user']->getId(); ?>" method="POST">
+
+                            <div class="form-row row-eq-spacing-sm">
+                                <!-- First name -->
+                                <div class="col-sm form-group">
+                                    <label for="first-name" class="font-weight-bold">First name</label>
+                                    <input type="text" class="form-control" disabled="disabled"
+                                           value="<?= $data['user']->getFirstName(); ?>"
+                                           id="first-name">
+                                </div>
+
+                                <!-- Last name -->
+                                <div class="col-sm form-group">
+                                    <label for="last-name" class="font-weight-bold">Last name</label>
+                                    <input type="text" class="form-control" disabled="disabled"
+                                           value="<?= $data['user']->getFirstName(); ?>"
+                                           id="last-name">
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="font-weight-bold">Email</label>
+                                <input type="email" id="email" class="form-control" disabled="disabled"
+                                       value="<?= $data['user']->getEmail(); ?>">
+                            </div>
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label for="password" class="required">Password</label>
+                                <input type="password" id="password"
+                                       class="form-control <?= isset($_SESSION['form_errors']['password']) ? 'is-invalid' : ''; ?>"
+                                       name="password" placeholder="Password" required="required">
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['password']) ? $_SESSION['form_errors']['password'] : ''; ?></small>
+                            </div>
+
+                            <input class="btn btn-primary btn-block" type="submit" value="Update">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Content wrapper end -->
+
+    <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>
+
+</div>
+<!-- Page wrapper end -->
+<script src="/js/particles.js"></script>
+<?php include TEMPLATE_PATH . "Scripts.tmpl.phtml"; ?>
+
+</body>
+</html>

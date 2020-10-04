@@ -27,6 +27,8 @@ class Route
         $this->register('GET', 'management', 'Management@management');
 
         $this->register('GET', 'user/list', 'User@list');
+        $this->register('GET', 'settings', 'User@settings');
+        $this->register('POST', 'user/editSubmit/{id}', 'User@editSubmit');
 
         $this->register('GET', 'admin/list', 'Admin@list');
         $this->register('GET', 'admin/create', 'Admin@create');

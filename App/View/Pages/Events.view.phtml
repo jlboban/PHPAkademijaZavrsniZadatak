@@ -28,9 +28,9 @@
                     <div class="col-sm-4 col-sm-auto">
                         <div class="mw-full"> <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
                             <div class="card p-0"> <!-- p-0 = padding: 0 -->
-                                <img src="/assets/eventzone_logo_gradient.png" class="img-fluid rounded-top" alt="Venue image">
+                                <img src="assets/eventzone_logo_gradient.png" class="img-fluid rounded-top" alt="Venue image">
                                 <div class="content">
-                                    <h2 class="content-title font-weight-bolder">
+                                    <h2 class="content-title font-weight-bolder text-center">
                                         <?= $event->getName(); ?>
                                     </h2>
                                     <h3 class="content-title font-weight-bold">
@@ -42,12 +42,12 @@
                                         <?= $event->getStartDate() . " | " . substr($event->getStartTime(),0,-3); ?>
                                     </p>
 
-                                    <div class="text-center"> <!-- text-right = text-align: right -->
-                                        <a href="<?= URL_ROOT; ?>event/view/<?= $event->getId(); ?>" class="btn btn-sm text-dark font-weight-bold">
+                                    <div class="text-center pt-20"> <!-- text-right = text-align: right -->
+                                        <a href="<?= URL_ROOT; ?>event/booking/<?= $event->getId(); ?>" class="btn btn-lg font-weight-bold">
                                             <i class="fas fa-money-check-alt"></i>
                                             Book event
                                         </a>
-                                        <a href="<?= URL_ROOT; ?>event/view/<?= $event->getId(); ?>" class="btn btn-sm text-dark font-weight-bold">
+                                        <a href="<?= URL_ROOT; ?>event/view/<?= $event->getId(); ?>" class="btn btn-lg font-weight-bold">
                                             <i class="fas fa-bars"></i>
                                             Details
                                         </a>
