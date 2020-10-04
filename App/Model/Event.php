@@ -12,7 +12,7 @@ class Event extends AbstractModel
 
     public static function getEventMusicians($id)
     {
-        $sql = "SELECT m.id, m.name FROM musician m
+        $sql = "SELECT m.id, m.name, m.genre, m.description FROM musician m
                 INNER JOIN event_musician em ON m.id = em.musician_id
                 INNER JOIN event e ON em.event_id = e.id
                 WHERE e.id = $id";
@@ -33,7 +33,7 @@ class Event extends AbstractModel
 
     public static function getEventVenues($id)
     {
-        $sql = "SELECT v.id, v.name FROM venue v
+        $sql = "SELECT v.id, v.name, v.capacity, v.address, v.city, v.postcode, v.country FROM venue v
         INNER JOIN event_venue ev on v.id = ev.venue_id
         INNER JOIN event e on ev.event_id = e.id
         WHERE event_id = $id;";

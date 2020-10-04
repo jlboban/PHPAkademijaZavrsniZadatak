@@ -19,12 +19,68 @@
     <?php include TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
 
     <!-- Content wrapper start -->
-    <div class="content-wrapper">
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="card border">
+            <div class="row">
 
-    <?php var_dump($data['event']); ?>
+                <div class="col-sm-5">
+                    <div class="mw-full">
+                        <div class="card p-0 border">
+                            <img src="<?= $data['event']->getImage(); ?>" class="img-fluid rounded-top" alt="Venue image">
+                            <div class="content">
+                                <h1 class="content-title font-weight-bolder text-center">
+                                    <?= $data['event']->getName(); ?>
+                                </h1>
+                                <h6 class="content-title font-weight-light text-center">
 
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-7">
+                    <div class="card p-0 border">
+                        <div class="content font-weight-light">
+                            <?php foreach ($data['venues'] as $venue): ?>
+                                <p class="text-muted">
+                                    <?= $venue->getName() . " | "; ?>
+                                    <?= '<i class="fas fa-user"></i>' . " " . $venue->getCapacity(); ?>
+                                </p>
+                                <p class="text-muted">
+                                    <?= $venue->getAddress() . ", " . $venue->getPostcode(); ?>
+                                    <?= $venue->getCity(); ?>
+                                </p>
+                                <p class="text-muted">
+                                    <?= $venue->getCountry(); ?>
+                                </p>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <?php foreach ($data['musicians'] as $musician): ?>
+                <div  class="col-sm-12">
+                    <div class="mw-full">
+                        <div class="card p-0 border">
+                            <img src="<?= $musician->getImage(); ?>" class="img-fluid rounded-top" alt="Venue image">
+                            <div class="content">
+                                <h3 class="content-title font-weight-bold">
+                                    <?= ' | ' . $musician->getName() . ' | ' . $musician->getGenre() . ' | ' ?>
+                                </h3>
+                                    <?= $musician->getDescription(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+
+            </div>
+        </div>
     </div>
-    <!-- Content wrapper end -->
+</div>
+<!-- Content wrapper end -->
 
     <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>
 

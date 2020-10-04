@@ -35,6 +35,15 @@
                                 <small class="text-danger"><?= isset($_SESSION['form_errors']['name']) ? $_SESSION['form_errors']['name'] : ''; ?></small>
                             </div>
 
+                            <!-- Genre -->
+                            <div class="col-sm form-group <?= isset($_SESSION['form_errors']['genre']) ? 'is-invalid' : ''; ?>">
+                                <label for="genre" class="required font-weight-bold">Genre</label>
+                                <input type="text" class="form-control"
+                                       value="<?= isset($_SESSION['form_data']['genre']) ? $_SESSION['form_data']['genre'] : ''; ?>"
+                                       name="genre" id="genre" placeholder="Genre" required="required">
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['genre']) ? $_SESSION['form_errors']['genre'] : ''; ?></small>
+                            </div>
+
                             <!-- Description -->
                             <label class="font-weight-bold required">Description</label>
                             <div class="form-group <?= isset($_SESSION['form_errors']['description']) ? 'is-invalid' : ''; ?>">
@@ -48,9 +57,19 @@
                             <label class="font-weight-bold required">Image</label>
                             <div class="custom-file pb-20">
                                 <input type="file" id="file-input" name="image" data-default-value="No image chosen"
-                                       class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
+                                class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
                                 <label for="file-input" style="width: 100%; text-align: center;">Choose an image</label>
                                 <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
+                            </div>
+
+                            <!-- Spotify -->
+                            <label for="spotify" class="required font-weight-bold">Spotify Embed Link</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['spotify']) ? $_SESSION['form_data']['spotify'] : ''; ?>"
+                                           name="spotify" id="spotify" placeholder="Spotify URL">
+                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['spotify']) ? $_SESSION['form_errors']['spotify'] : ''; ?></small>
+                                </div>
                             </div>
 
                             <input class="btn btn-primary btn-block" type="submit" value="Add">

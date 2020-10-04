@@ -107,7 +107,6 @@ class AdminController extends AbstractController
 
             $this->redirect('admin/edit/' . $id);
         }
-
     }
 
     public function deleteSubmitAction($id)

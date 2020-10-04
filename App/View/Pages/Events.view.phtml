@@ -7,12 +7,6 @@
 <!-- Page wrapper start -->
 <div id="page-wrapper" class="page-wrapper with-navbar with-navbar-fixed-bottom">
 
-    <!-- Register Modal -->
-    <?php include VIEW_PATH . "Pages/Register.view.phtml"; ?>
-
-    <!-- Login Modal -->
-    <?php include VIEW_PATH . "Pages/Login.view.phtml"; ?>
-
     <!-- Sticky alerts -->
     <div class="sticky-alerts"></div>
 
@@ -26,9 +20,13 @@
             <div class="row">
                 <?php foreach ($data['events'] as $event): ?>
                     <div class="col-sm-4 col-sm-auto">
-                        <div class="mw-full"> <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
-                            <div class="card p-0"> <!-- p-0 = padding: 0 -->
-                                <img src="assets/eventzone_logo_gradient.png" class="img-fluid rounded-top" alt="Venue image">
+                        <div class="mw-full">
+                            <?php if (App\Model\User::isBookedToEvent(\Core\Auth::getInstance()->getCurrentUser()->getId(), $event->getId())) :?>
+                            <div class="card p-0" style="background: linear-gradient(to right, #ff4500, #ff8c2e); border: none;">
+                            <?php else: ?>
+                            <div class="card p-0">
+                            <?php endif ?>
+                                <img src="<?= $event->getImage(); ?>" class="img-fluid rounded-top" alt="Event image">
                                 <div class="content">
                                     <h2 class="content-title font-weight-bolder text-center">
                                         <?= $event->getName(); ?>
@@ -42,11 +40,19 @@
                                         <?= $event->getStartDate() . " | " . substr($event->getStartTime(),0,-3); ?>
                                     </p>
 
-                                    <div class="text-center pt-20"> <!-- text-right = text-align: right -->
-                                        <a href="<?= URL_ROOT; ?>event/booking/<?= $event->getId(); ?>" class="btn btn-lg font-weight-bold">
-                                            <i class="fas fa-money-check-alt"></i>
-                                            Book event
+                                    <div class="text-center pt-20 pb-20">
+                                        <?php if (!App\Model\User::isBooked(\Core\Auth::getInstance()->getCurrentUser()->getId())) :?>
+                                            <a href="<?= URL_ROOT; ?>user/booking/<?= $event->getId(); ?>" class="btn btn-lg font-weight-bold">
+                                                <i class="fas fa-money-check-alt"></i>
+                                                Book event
+                                            </a>
+                                        <?php elseif(App\Model\User::isBookedToEvent(\Core\Auth::getInstance()->getCurrentUser()->getId(), $event->getId())): ?>
+                                        <a href="<?= URL_ROOT; ?>booking/deleteSubmit/<?= $event->getId(); ?>" class="btn btn-lg font-weight-bold">
+                                            <i class="fas fa-times"></i>
+                                            Cancel event
                                         </a>
+
+                                        <?php endif ?>
                                         <a href="<?= URL_ROOT; ?>event/view/<?= $event->getId(); ?>" class="btn btn-lg font-weight-bold">
                                             <i class="fas fa-bars"></i>
                                             Details

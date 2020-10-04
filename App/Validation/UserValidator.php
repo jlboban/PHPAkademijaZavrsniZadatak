@@ -10,6 +10,16 @@ class UserValidator extends AbstractValidator
 {
     public function validate(array $data): bool
     {
+        $this->validateAddress($data['address']);
+        $this->validateCity($data['city']);
+        $this->validatePostcode($data['postcode']);
+        $this->validateCountry($data['country']);
+
+        return empty($this->getErrors());
+    }
+
+    public function validateUpdatedPassword(array $data): bool
+    {
         $this->validatePassword($data['password']);
 
         return empty($this->getErrors());
@@ -43,6 +53,86 @@ class UserValidator extends AbstractValidator
         else
         {
             $this->errors['password'] = "You must enter a password.";
+        }
+    }
+
+    private function validateAddress(string $address): void
+    {
+        if (!empty($address))
+        {
+            if (strlen($address) < 2 || strlen($address) > 50)
+            {
+                $this->errors['address'] = "Please input a valid address.";
+            }
+        }
+        else
+        {
+            $this->errors['address'] = "Please input an address.";
+        }
+
+        if (empty($this->errors['address']))
+        {
+            $this->data['address'] = $address;
+        }
+    }
+
+    private function validateCity(string $city): void
+    {
+        if (!empty($city))
+        {
+            if (strlen($city) < 2 || strlen($city) > 50)
+            {
+                $this->errors['city'] = "Please input a valid city name.";
+            }
+        }
+        else
+        {
+            $this->errors['city'] = "Please input a city name.";
+        }
+
+        if (empty($this->errors['city']))
+        {
+            $this->data['city'] = $city;
+        }
+    }
+
+    private function validatePostcode(string $postcode): void
+    {
+        if (!empty($postcode))
+        {
+            if (strlen($postcode) < 2 || strlen($postcode) > 10)
+            {
+                $this->errors['postcode'] = "Please input a valid postal code.";
+            }
+        }
+        else
+        {
+            $this->errors['postcode'] = "Please input a postcode.";
+        }
+
+        if (empty($this->errors['postcode']))
+        {
+            $this->data['postcode'] = $postcode;
+        }
+    }
+
+    private function validateCountry(string $country): void
+    {
+        if (!empty($country))
+        {
+            if (strlen($country) < 2 || strlen($country) > 50)
+            {
+                $this->errors['country'] = "Please input a valid country name.";
+            }
+        }
+        else
+        {
+            $this->errors['country'] = "Please input a country.";
+        }
+
+        if (empty($this->errors['country']))
+        {
+            $this->data['country'] = $country;
         }
     }
 }

@@ -20,9 +20,37 @@
 
     <!-- Content wrapper start -->
     <div class="content-wrapper">
-
-        <?php var_dump($data['venue']); ?>
-
+        <div class="container-fluid">
+            <div class="card border">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mw-full">
+                            <div class="card p-0 border">
+                                <img src="<?= $data['venue']->getImage(); ?>" class="img-fluid rounded-top" alt="Venue image">
+                                <div class="content">
+                                    <h1 class="content-title font-weight-bolder text-center">
+                                        <?= $data['venue']->getName(); ?>
+                                    </h1>
+                                    <h6 class="content-title font-weight-light text-center">
+                                        <i class="fas fa-users"></i> <?= $data['venue']->getCapacity(); ?>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card p-0 border">
+                            <div class="content font-weight-light">
+                                <?= $data['venue']->getAddress() . ","; ?> <?= $data['venue']->getCity(); ?>
+                            </div>
+                            <div class="content font-weight-light">
+                                <?= $data['venue']->getPostcode() . ","; ?> <?= $data['venue']->getCountry(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Content wrapper end -->
 

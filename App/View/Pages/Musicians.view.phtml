@@ -21,7 +21,7 @@
                     <div class="col-sm-4 col-sm-auto">
                         <div class="mw-full"> <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
                             <div class="card p-0"> <!-- p-0 = padding: 0 -->
-                                <img src="/assets/eventzone_logo_gradient.png" class="img-fluid rounded-top" alt="Venue image">
+                                <img src="<?= $musician->getImage(); ?>" class="img-fluid rounded-top" alt="Venue image">
                                 <div class="content">
                                     <h2 class="content-title">
                                         <?= $musician->getName(); ?>
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <!-- Content wrapper end -->
+    <!-- Content wrapper end -->
     </div>
 
     <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>

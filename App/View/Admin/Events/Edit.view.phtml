@@ -41,27 +41,27 @@
                                         <?= $data['musician']->getDescription(); ?>
                                     </textarea>
                                 <small class="text-danger"><?= isset($_SESSION['form_errors']['description']) ? $_SESSION['form_errors']['description'] : ''; ?></small>
+                                </div>
                             </div>
-                    </div>
 
-                    <!-- Image -->
-                    <div class="custom-file pb-20">
-                        <input type="file" id="file-input" name="image" data-default-value="No image chosen"
-                               class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
-                        <label for="file-input">Choose an image</label>
-                        <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
-                    </div>
+                            <!-- Image -->
+                            <div class="custom-file pb-20">
+                                <input type="file" id="file-input" name="image" data-default-value="No image chosen"
+                                       class="<?= isset($_SESSION['form_errors']['image']) ? 'is-invalid' : ''; ?>">
+                                <label for="file-input">Choose an image</label>
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['image']) ? $_SESSION['form_errors']['image'] : ''; ?></small>
+                            </div>
 
-                    <input class="btn btn-primary btn-block" type="submit" value="Add">
-                    </form>
+                            <input class="btn btn-primary btn-block" type="submit" value="Add">
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-3"></div>
+                <div class="col-lg-3"></div>
 
+            </div>
         </div>
     </div>
-</div>
-<!-- Content wrapper end -->
+    <!-- Content wrapper end -->
 
 </div>
 <!-- Page wrapper end -->

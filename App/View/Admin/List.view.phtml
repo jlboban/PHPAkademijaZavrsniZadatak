@@ -37,27 +37,27 @@
                             <tbody>
 
                             <?php foreach ($data['admins'] as $admin) :?>
-                                <tr>
-                                    <th><?= $admin->getId(); ?></th>
-                                    <td><?= $admin->getFirstName(); ?></td>
-                                    <td><?= $admin->getLastName(); ?></td>
-                                    <td><?= $admin->getEmail(); ?></td>
-                                    <td>
-                                        <a href="edit/<?= $admin->getId(); ?>" class="btn btn-square">
+                            <tr>
+                                <th><?= $admin->getId(); ?></th>
+                                <td><?= $admin->getFirstName(); ?></td>
+                                <td><?= $admin->getLastName(); ?></td>
+                                <td><?= $admin->getEmail(); ?></td>
+                                <td>
+                                    <a href="edit/<?= $admin->getId(); ?>" class="btn btn-square">
                                         <span>
                                              <i class="fa fa-edit" aria-hidden="true"></i>
                                         </span>
-                                        </a>
+                                    </a>
 
-                                        <form action="deleteSubmit/<?= $admin->getId(); ?>" method="post">
-                                            <button class="btn btn-square" name="deleteSubmit">
+                                    <form action="deleteSubmit/<?= $admin->getId(); ?>" method="post">
+                                        <button class="btn btn-square" name="deleteSubmit">
                                         <span>
                                              <i class="fa fa-trash" aria-hidden="true"></i>
                                         </span>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                             <?php endforeach; ?>
 
                             </tbody>

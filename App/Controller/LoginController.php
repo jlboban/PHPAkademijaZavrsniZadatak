@@ -29,17 +29,10 @@ class LoginController extends AbstractController
         if ($validator->validate($post))
         {
             $user = User::getOne('email', $post['email']);
-
+            
             $this->auth->login($user);
 
-            if ($user->getIsAdmin())
-            {
-                $this->redirect('management');
-            }
-            else
-            {
-                $this->redirect('#profile');
-            }
+            $this->redirect('');
         }
         else
         {

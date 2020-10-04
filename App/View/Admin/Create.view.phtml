@@ -20,50 +20,52 @@
     <div class="content-wrapper">
         <div class="container-fluid">
             <div class="row row-eq-spacing-lg">
-                <div class="col-lg-12">
-
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <h1 class="text-center">Add new administrator</h1>
                     <div class="content">
-                        <h3>Admin List</h3>
-                        <table class="table table-hover table-responsive">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <form action="<?= URL_ROOT . "admin/createSubmit"?>" method="POST">
 
-                            <?php foreach ($data['admins'] as $admin) :?>
-                                <tr>
-                                    <th><?= $admin->getId(); ?></th>
-                                    <td><?= $admin->getFirstName(); ?></td>
-                                    <td><?= $admin->getLastName(); ?></td>
-                                    <td><?= $admin->getEmail(); ?></td>
-                                    <td>
-                                        <a href="edit/<?= $admin->getId(); ?>" class="btn btn-square">
-                                        <span>
-                                             <i class="fa fa-edit" aria-hidden="true"></i>
-                                        </span>
-                                        </a>
+                            <div class="form-row row-eq-spacing-sm">
+                                <!-- First name -->
+                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
+                                    <label for="first-name" class="required font-weight-bold">First name</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['firstName']) ? $_SESSION['form_data']['firstName'] : ''; ?>"
+                                           name="first-name" id="first-name" placeholder="First name" required="required">
+                                    <small class="text-danger"><?= isset($_SESSION['form_errors']['name']) ? $_SESSION['form_errors']['name'] : ''; ?></small>
+                                </div>
 
-                                        <form action="deleteSubmit/<?= $admin->getId(); ?>" method="post">
-                                            <button class="btn btn-square" name="deleteSubmit">
-                                        <span>
-                                             <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </span>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                                <!-- Last name -->
+                                <div class="col-sm form-group <?= isset($_SESSION['form_errors']['name']) ? 'is-invalid' : ''; ?>">
+                                    <label for="last-name" class="required font-weight-bold">Last name</label>
+                                    <input type="text" class="form-control"
+                                           value="<?= isset($_SESSION['form_data']['lastName']) ? $_SESSION['form_data']['lastName'] : ''; ?>"
+                                           name="last-name" id="last-name" placeholder="Last name" required="required">
+                                </div>
+                            </div>
 
-                            </tbody>
-                        </table>
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="required font-weight-bold">Email</label>
+                                <input type="email" id="email" class="form-control" name="email" placeholder="Email" required="required"
+                                       value="<?= isset($_SESSION['form_data']['email']) ? $_SESSION['form_data']['email'] : ''; ?>">
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['email']) ? $_SESSION['form_errors']['email'] : ''; ?></small>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label for="password" class="required">Password</label>
+                                <input type="password" id="password" class="form-control" name="password" placeholder="Password" required="required">
+                                <small class="text-danger"><?= isset($_SESSION['form_errors']['password']) ? $_SESSION['form_errors']['password'] : ''; ?></small>
+                            </div>
+
+
+                            <input class="btn btn-primary btn-block" type="submit" value="Add">
+                        </form>
                     </div>
                 </div>
+                <div class="col-lg-3"></div>
 
             </div>
         </div>

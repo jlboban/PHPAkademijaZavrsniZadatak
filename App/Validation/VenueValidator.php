@@ -4,123 +4,141 @@ declare(strict_types = 1);
 
 namespace App\Validation;
 
-use App\Model\User;
-
-class RegisterValidator extends AbstractValidator
+class VenueValidator extends AbstractValidator
 {
-    public function validate(array $data): bool
+    function validate(array $data): bool
     {
-        $this->validateName($data['first-name'], $data['last-name']);
-        $this->validateEmail($data['email']);
-        $this->validatePassword($data['password']);
-        $this->validateConfirmPassword($data['password'], $data['confirm-password']);
+        $this->validateName($data['name']);
+        $this->validateCapacity($data['capacity']);
+        $this->validateAddress($data['address']);
+        $this->validateCity($data['city']);
+        $this->validatePostcode($data['postcode']);
+        $this->validateCountry($data['country']);
 
         return empty($this->getErrors());
     }
 
-    private function validateName(string $firstName, string $lastName): void
+    private function validateName(string $name): void
     {
-        if (!empty($firstName) || !empty($lastName))
+        if (!empty($name))
         {
-            if (strlen($firstName) < 2 || strlen($lastName) < 2)
+            if (strlen($name) < 2)
             {
-                $this->errors['name'] = "Please enter a real name.";
+                $this->errors['name'] = "Please enter a valid name.";
             }
-            elseif (strlen($firstName) > 50)
+            elseif (strlen($name) > 50)
             {
-                $this->errors['name'] = "Name is too long.";
+                $this->errors['name'] = "Venue name is too long.";
             }
         }
         else
         {
-            $this->errors['name'] = "You must enter your full name.";
+            $this->errors['name'] = "You must provide a venue name.";
         }
 
         if (empty($this->errors['name']))
         {
-            $this->data['firstName'] = $firstName;
-            $this->data['lastName'] = $lastName;
+            $this->data['name'] = $name;
         }
     }
 
-    private function validateEmail(string $email): void
+    private function validateCapacity(string $capacity)
     {
-        if (!empty($email))
+        if (!empty($capacity))
         {
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+            if (strlen($capacity) < 2 || strlen($capacity) > 6 || !ctype_digit($capacity))
             {
-                $this->errors['email'] = "Invalid email provided.";
-            }
-            if (strlen($email) < 2)
-            {
-                $this->errors['email'] = "Email is too short.";
-            }
-            elseif (strlen($email) > 50)
-            {
-                $this->errors['email'] = "Email is too long.";
-            }
-            else
-            {
-                if (User::isEmailAvailable($email))
-                {
-                    $this->errors['email'] = "Email is already being used.";
-                }
-            }
-
-            if (empty($this->errors['email']))
-            {
-                $this->data['email'] = $email;
+                $this->errors['capacity'] = "Please input a valid capacity number.";
             }
         }
         else
         {
-            $this->errors['email'] = "You must enter an email.";
+            $this->errors['capacity'] = "Please input a capacity value.";
+        }
+
+        if (empty($this->errors['capacity']))
+        {
+            $this->data['capacity'] = $capacity;
         }
     }
 
-    private function validatePassword(string $password): void
+    private function validateAddress(string $address): void
     {
-        if (!empty($password))
+        if (!empty($address))
         {
-            if (strlen($password) < 8)
+            if (strlen($address) < 2 || strlen($address) > 50)
             {
-                $this->errors['password'] = "Password must be at least 8 characters long.";
-            }
-            if (strlen($password) > 50)
-            {
-                $this->errors['password'] = "Password must be less than 50 characters long.";
-            }
-            if (!preg_match("#[0-9]+#", $password))
-            {
-                $this->errors['password'] = "Password must have at least 1 number.";
-            }
-            if (!preg_match("#[A-Z]+#", $password))
-            {
-                $this->errors['password'] = "Password must have at least 1 uppercase character.";
-            }
-            if (!preg_match("#[a-z]+#", $password))
-            {
-                $this->errors['password'] = "Password must have at least 1 lowercase character.";
+                $this->errors['address'] = "Please input a valid address.";
             }
         }
         else
         {
-            $this->errors['password'] = "You must enter a password.";
+            $this->errors['address'] = "Please input an address.";
+        }
+
+        if (empty($this->errors['address']))
+        {
+            $this->data['address'] = $address;
         }
     }
 
-    private function validateConfirmPassword(string $password, string $confirmPassword): void
+    private function validateCity(string $city): void
     {
-        if (!empty($confirmPassword))
+        if (!empty($city))
         {
-            if ($password != $confirmPassword)
+            if (strlen($city) < 2 || strlen($city) > 50)
             {
-                $this->errors['confirm-password'] = "Passwords do not match.";
+                $this->errors['city'] = "Please input a valid city name.";
             }
         }
         else
         {
-            $this->errors['confirm-password'] = "Please confirm password.";
+            $this->errors['city'] = "Please input a city name.";
+        }
+
+        if (empty($this->errors['city']))
+        {
+            $this->data['city'] = $city;
+        }
+    }
+
+    private function validatePostcode(string $postcode): void
+    {
+        if (!empty($postcode))
+        {
+            if (strlen($postcode) < 2 || strlen($postcode) > 10)
+            {
+                $this->errors['postcode'] = "Please input a valid postal code.";
+            }
+        }
+        else
+        {
+            $this->errors['postcode'] = "Please input a postcode.";
+        }
+
+        if (empty($this->errors['postcode']))
+        {
+            $this->data['postcode'] = $postcode;
+        }
+    }
+
+    private function validateCountry(string $country): void
+    {
+        if (!empty($country))
+        {
+            if (strlen($country) < 2 || strlen($country) > 50)
+            {
+                $this->errors['country'] = "Please input a valid country name.";
+            }
+        }
+        else
+        {
+            $this->errors['country'] = "Please input a country.";
+        }
+
+        if (empty($this->errors['country']))
+        {
+            $this->data['country'] = $country;
         }
     }
 }

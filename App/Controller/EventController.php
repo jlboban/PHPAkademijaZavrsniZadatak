@@ -11,6 +11,7 @@ use App\Model\Venue;
 use App\Validation\EventValidator;
 use App\Validation\ImageValidator;
 use Core\Input;
+use DateTime;
 
 class EventController extends AbstractController
 {
@@ -35,13 +36,35 @@ class EventController extends AbstractController
 
     public function viewAction($id)
     {
+        if ($this->auth->getCurrentUser() === null || !$this->auth->isLoggedIn())
+        {
+            $this->redirect('');
+        }
+
         if ($id)
         {
             $event = Event::getOne('id', $id);
+            $musicians = Event::getEventMusicians($id);
+            $venues = Event::getEventVenues($id);
+
+            $currentDate = new DateTime(date("Y/m/d"));
+            $startDate = new DateTime($event->getStartDate());
+            $interval = date_diff($currentDate, $startDate);
+            $daysUntilEvent = $interval->format('%R%a');
+            $daysUntilEvent > 30 ? $discount = true : $discount = false;
+
+            $price = $this->calculatePrice($event->getPrice(), $discount ? $event->getDiscount() : '0');
 
             $this->view->render("Pages/Event", [
-                'event' => $event
+                'event' => $event,
+                'musicians' => $musicians,
+                'venues' => $venues,
+                'daysUntilEvent' => $daysUntilEvent,
+                'price' => $price,
+                'discount' => $discount
             ]);
+
+            $event = Event::getOne('id', $id);
         }
         else
         {
@@ -170,5 +193,11 @@ class EventController extends AbstractController
         $name = $name . uniqid('_', false) . '.' . $ext;
         $path = "assets" . DS . "events" . DS;
         return $path . $name;
+    }
+
+    private function calculatePrice(string $price, string $discount = null)
+    {
+        $discountNum = $price * $discount;
+        return $newPrice = $price - $discountNum . ".00";
     }
 }

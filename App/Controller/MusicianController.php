@@ -79,7 +79,8 @@ class MusicianController extends AbstractController
 
         if ($musicianValidator->validate($post) && $imageValidator->validate($files))
         {
-            $name = ucfirst(strtolower($post['name']));
+            $name = $post['name'];
+            $genre = $post['genre'];
             $description = $post['description'];
 
             $type = $files['image']['type'];
@@ -90,6 +91,7 @@ class MusicianController extends AbstractController
             {
                 Musician::insert([
                     'name' => $name,
+                    'genre' => $genre,
                     'description' => $description,
                     'image' => $path
                 ]);
@@ -139,8 +141,10 @@ class MusicianController extends AbstractController
 
         if ($musicianValidator->validate($post) && $imageValidator->validate($files))
         {
-            $name = ucfirst(strtolower($post['name']));
+            $name = $post['name'];
+            $genre = $post['genre'];
             $description = $post['description'];
+            $spotify = $post['spotify'];
 
             $type = $files['image']['type'];
             $tmpName = $files['image']['tmp_name'];
@@ -150,15 +154,17 @@ class MusicianController extends AbstractController
             {
                 $oldImage = Musician::getOne('id', $id)->getImage();
 
-                if ($oldImage != null)
+                if (file_exists($oldImage) && $oldImage != null)
                 {
                     unlink($oldImage);
                 }
 
                 Musician::update([
                     'name' => $name,
+                    'genre' => $genre,
                     'description' => $description,
-                    'image' => $path
+                    'image' => $path,
+                    'spotify' => $spotify
                 ], 'id', $id);
 
                 $this->redirect('musician/list');
