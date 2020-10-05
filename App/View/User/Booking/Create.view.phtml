@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<?php include TEMPLATE_PATH . "Head.tmpl.phtml"; ?>
+
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true">
+
+<!-- Page wrapper start -->
+<div id="page-wrapper" class="page-wrapper with-navbar with-navbar-fixed-bottom">
+
+    <!-- Register Modal -->
+    <?php include VIEW_PATH . "Pages/Register.view.phtml"; ?>
+
+    <!-- Login Modal -->
+    <?php include VIEW_PATH . "Pages/Login.view.phtml"; ?>
+
+    <!-- Sticky alerts -->
+    <div class="sticky-alerts"></div>
+
+    <?php include TEMPLATE_PATH . "Nav.tmpl.phtml"; ?>
+
+    <!-- Content wrapper start -->
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="card border">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card p-0 border">
+                        <div class="content">
+                            <h2 class="content-title font-weight-bolder">
+                                <i class="fas fa-user"></i>
+                                <?= $data['user']->getFirstName(); ?> <?= $data['user']->getLastName(); ?>
+                            </h2>
+                            <h2 class="content-title font-weight-bolder">
+                                <i class="fas fa-envelope"></i>
+                                <?= $data['user']->getEmail(); ?>
+                            </h2>
+                        </div>
+                    </div>
+                    <?php if ($data['user']->getAddress() !== null): ?>
+                    <div class="card p-0 border">
+                        <div class="content">
+                            <h4>Billing Address</h4>
+                            <p class="text-muted">
+                                <?= $data['user']->getAddress() . ", " . $data['user']->getPostcode(); ?>
+                                <?= $data['user']->getCity(); ?>
+                            </p>
+                            <p class="text-muted">
+                                <?= $data['user']->getCountry(); ?>
+                            </p>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <div class="card p-0 border">
+                        <div class="content">
+                            <h3 class="text-danger"><i class="fas fa-exclamation-triangle"></i> Please update your billing address in the settings menu.</h3>
+                        </div>
+                    </div>
+                    <?php endif ?>
+                    <div class="card p-0 border">
+                        <div class="content">
+                            <h4>Price</h4>
+                            <h2 class="content-title font-weight-bolder">
+                                <i class="fas fa-money-bill"></i>
+                                <?= $data['event']->getPrice(); ?>
+                            </h2>
+                            <?php if($data['discount']) :?>
+                                <h2 class="content-title font-weight-bolder">
+                                    <i class="fas fa-tags"></i>
+                                    <?= substr($data['event']->getDiscount(), 2) . '%'; ?>
+                                </h2>
+                                <hr>
+                                <h2 class="content-title font-weight-bolder">
+                                    <i class="fas fa-money-bill"></i>
+                                    Price: <?= $data['price'] ?>
+                                </h2>
+                            <?php endif ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class="col-sm-6">
+                    <div class="mw-full">
+                        <div class="card p-0 border">
+                            <img src="/assets/eventzone_logo_gradient.png" class="img-fluid rounded-top" alt="Venue image">
+                            <div class="content">
+                                <h2 class="content-title font-weight-bolder text-center">
+                                    <?= $data['event']->getName(); ?>
+                                </h2>
+                                <h3 class="content-title font-weight-bold">
+                                    <?php foreach ($data['musicians'] as $musician): ?>
+                                        <?= ' | ' . $musician->getName(); ?>
+                                    <?php endforeach; ?>
+                                </h3>
+                                <?php foreach ($data['venues'] as $venue): ?>
+                                    <p class="text-muted">
+                                        <?= $venue->getName() . " | "; ?>
+                                        <?= '<i class="fas fa-user"></i>' . " " . $venue->getCapacity(); ?>
+                                    </p>
+                                    <p class="text-muted">
+                                        <?= $venue->getAddress() . ", " . $venue->getPostcode(); ?>
+                                        <?= $venue->getCity(); ?>
+                                    </p>
+                                    <p class="text-muted">
+                                        <?= $venue->getCountry(); ?>
+                                    </p>
+                                <?php endforeach; ?>
+                                <?php if(!App\Model\User::isBooked($data['user']->getId())): ?>
+                                <div class="text-right">
+                                    <form action="<?= URL_ROOT; ?>user/bookingSubmit/<?= $data['event']->getId(); ?>" method="post">
+                                        <input type="hidden" name="price" value="<?= $data['price']; ?>">
+                                        <button <?= $data['user']->getAddress() == null ? 'disabled="disabled"' : '' ?> class="btn btn-lg font-weight-bold ">
+                                            <i class="fas fa-check"></i>Confirm
+                                        </button>
+                                    </form>
+                                </div>
+                                <?php endif ?>
+                                <?php if (App\Model\User::isBookedToEvent($data['user']->getId(), $data['event']->getId())) :?>
+                                <div class="text-right">
+                                    <form action="<?= URL_ROOT; ?>booking/deleteSubmit/<?= $data['event']->getId(); ?>" method="post">
+                                    <button class="btn btn-lg font-weight-bold btn-danger"><i class="fas fa-times"></i> Cancel</button>
+                                    </form>
+                                </div>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Content wrapper end -->
+
+    <?php include TEMPLATE_PATH . "Footer.tmpl.phtml"; ?>
+
+</div>
+<!-- Page wrapper end -->
+
+<?php include TEMPLATE_PATH . "Scripts.tmpl.phtml"; ?>
+
+</body>
+</html>
