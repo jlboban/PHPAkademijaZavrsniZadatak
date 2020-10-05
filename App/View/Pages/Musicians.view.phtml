@@ -1,6 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include TEMPLATE_PATH . "Head.tmpl.phtml"; ?>
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Chrome, Firefox OS and Opera mobile address bar theming -->
+    <meta name="theme-color" content="#000000">
+    <!-- Windows Phone mobile address bar theming -->
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <!-- iOS Safari mobile address bar theming -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+
+    <!-- SEO -->
+    <meta name="description" content="Purchase concert, music, and festival tickets at the official EventZone shop.">
+    <meta name="author" content="EventZone">
+    <meta name="keywords" content="ticket, concert ticket, music ticket, festival ticket, music, festival, concert, artist, musician">
+
+    <!-- Open graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content=""> <!-- INSERT FINAL URL HERE -->
+    <meta property="og:title" content="Croatia's leading event booking retailer for events, concerts and festivals.">
+    <meta property="og:description" content="Book events at the official EventZone shop.">
+    <meta property="og:image" content=""> <!-- INSERT FINAL LOGO HERE -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Favicon and title -->
+    <link rel="icon" href="path/to/fav.png">
+    <title><?= isset($title) ? SITE_NAME . ' | ' . $title : SITE_NAME ?></title>
+
+    <!-- Halfmoon CSS -->
+    <link href="<?= PUB ?>css/halfmoon.css" rel="stylesheet" />
+
+    <!-- Font Awesome 5.14.0 -->
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" integrity="sha384-3Nqiqht3ZZEO8FKj7GR1upiI385J92VwWNLj+FqHxtLYxd9l+WYpeqSOrLh0T12c" crossorigin="anonymous"></script>
+
+    <!-- Project CSS -->
+    <link href="../css/style.css" rel="stylesheet" >
+
+</head>
 <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true">
 
 <!-- Page wrapper start -->
