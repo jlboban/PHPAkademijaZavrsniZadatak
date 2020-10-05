@@ -45,9 +45,6 @@ class BookingController extends AbstractController
             'price' => $price,
             'discount' => $discount
         ]);
-
-        // Clear errors and data if they exist for next validation
-        $this->session->resetFormInput();
     }
 
     public function createSubmitAction($id)

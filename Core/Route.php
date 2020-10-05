@@ -27,8 +27,13 @@ class Route
         $this->register('GET', 'management', 'Management@management');
 
         $this->register('GET', 'user/list', 'User@list');
-        $this->register('GET', 'settings', 'User@settings');
+        $this->register('GET', 'user/settings', 'User@settings');
         $this->register('POST', 'user/editSubmit/{id}', 'User@editSubmit');
+        $this->register('POST', 'user/editPasswordSubmit/{id}', 'User@editPasswordSubmit');
+
+        $this->register('GET', 'user/booking/{id}', 'Booking@create');
+        $this->register('POST', 'user/bookingSubmit/{id}', 'Booking@createSubmit');
+        $this->register('GET', 'booking/deleteSubmit/{id}', 'Booking@deleteSubmit');
 
         $this->register('GET', 'admin/list', 'Admin@list');
         $this->register('GET', 'admin/create', 'Admin@create');
