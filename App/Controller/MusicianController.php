@@ -82,6 +82,7 @@ class MusicianController extends AbstractController
             $name = $post['name'];
             $genre = $post['genre'];
             $description = $post['description'];
+            $spotify = $post['spotify'];
 
             $type = $files['image']['type'];
             $tmpName = $files['image']['tmp_name'];
@@ -93,7 +94,8 @@ class MusicianController extends AbstractController
                     'name' => $name,
                     'genre' => $genre,
                     'description' => $description,
-                    'image' => $path
+                    'image' => $path,
+                    'spotify' => $spotify
                 ]);
 
                 $this->redirect('musician/list');
