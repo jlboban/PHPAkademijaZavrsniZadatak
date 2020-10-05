@@ -1,0 +1,66 @@
+<!-- Navbar start -->
+<nav class="navbar">
+    <div class="navbar-content">
+        <div class="navbar-content">
+
+        </div>
+        <!-- Navbar brand -->
+        <a href="<?= URL_ROOT; ?>" class="navbar-brand">
+            <img src="../assets/eventzone_logo_gradient.png" alt="logo">
+        </a>
+
+        <?php if (\Core\Auth::getInstance()->isLoggedIn()): ?>
+            <a href="<?= URL_ROOT; ?>event/view">
+                <button class="btn btn-sm mr-10 text-dark font-weight-bold" type="button"
+                        style="background: linear-gradient(to left, #ff8c2e, #ff4500); border: none;">
+                    <i class="fa fa-calendar-alt" aria-hidden="true"></i>
+                    Events
+                </button>
+            </a>
+        <?php endif ?>
+
+        <a href="<?= URL_ROOT; ?>musician/view">
+            <button class="btn btn-sm mr-10 text-dark font-weight-bold" type="button"
+                    style="background: linear-gradient(to right, #ff8c2e, #ff4500); border: none;">
+                <i class="fa fa-music" aria-hidden="true"></i>
+                Musicians
+            </button>
+        </a>
+
+        <a href="<?= URL_ROOT; ?>venue/view">
+            <button class="btn btn-sm text-dark font-weight-bold" type="button"
+                    style="background: linear-gradient(to right, #ff4500, #ff8c2e); border: none;">
+                <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                Venues
+            </button>
+        </a>
+    </div>
+
+    <div class="navbar-content ml-auto">
+        <?php if (!\Core\Auth::getInstance()->isLoggedIn()): ?>
+            <a href="<?= URL_ROOT; ?>#register">
+                <button class="btn btn-primary shadow" type="button">Sign up</button>
+            </a>
+        <?php else: ?>
+            <div class="dropdown toggle-on-hover">
+                <button class="btn" data-toggle="dropdown" type="button" id="" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user ml-5" aria-hidden="true"></i> Account <i class="fa fa-angle-down ml-5" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="...">
+                    <?php if (\Core\Auth::getInstance()->getCurrentUser()->getIsAdmin()): ?>
+                        <a href="<?= URL_ROOT; ?>management" class="dropdown-item">Management</a>
+                    <?php else: ?>
+                        <a href="<?= URL_ROOT; ?>user/settings" class="dropdown-item">Settings</a>
+                    <?php endif ?>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-content">
+                        <a href="<?= URL_ROOT; ?>login/logoutSubmit">
+                            <button class="btn btn-block btn-danger" type="button">Sign out</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endif ?>
+    </div>
+</nav>
+<!-- Navbar end -->
