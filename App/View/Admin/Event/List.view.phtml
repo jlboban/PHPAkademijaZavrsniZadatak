@@ -81,12 +81,6 @@
 
                                 <td><img src="<?= $event->getImage(); ?>" alt="<?= $event->getImage(); ?>"></td>
                                 <td>
-                                    <a href="edit/<?= $event->getId(); ?>" class="btn btn-square">
-                                    <span>
-                                         <i class="fa fa-edit" aria-hidden="true"></i>
-                                    </span>
-                                    </a>
-
                                     <form action="deleteSubmit/<?= $event->getId(); ?>" method="post">
                                         <button class="btn btn-square" name="deleteSubmit">
                                     <span>
