@@ -191,7 +191,7 @@ class EventController extends AbstractController
         $ext = strtolower(end($ext));
 
         $name = $name . uniqid('_', false) . '.' . $ext;
-        $path = "../../assets" . DS . "events" . DS;
+        $path = "assets" . DS . "events" . DS;
         return $path . $name;
     }
 
