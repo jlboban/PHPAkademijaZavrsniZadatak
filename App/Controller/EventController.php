@@ -70,7 +70,7 @@ class EventController extends AbstractController
         {
             $events = Event::getAll();
 
-            $this->view->render("Pages/Events", [
+            $this->view->render("Pages/Event", [
                 'events' => $events
             ]);
         }
@@ -191,7 +191,7 @@ class EventController extends AbstractController
         $ext = strtolower(end($ext));
 
         $name = $name . uniqid('_', false) . '.' . $ext;
-        $path = "assets" . DS . "events" . DS;
+        $path = "../../assets" . DS . "events" . DS;
         return $path . $name;
     }
 
