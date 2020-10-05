@@ -68,10 +68,10 @@ class EventController extends AbstractController
         }
         else
         {
-            $event = Event::getAll();
+            $events = Event::getAll();
 
             $this->view->render("Pages/Events", [
-                'event' => $event
+                'events' => $events
             ]);
         }
     }
