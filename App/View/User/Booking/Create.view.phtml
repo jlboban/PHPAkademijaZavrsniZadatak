@@ -81,7 +81,9 @@
                 <div  class="col-sm-6">
                     <div class="mw-full">
                         <div class="card p-0 border">
-                            <img src="../../<?= $data['musicians']->getImage(); ?>" class="img-fluid rounded-top" alt="Musician image">
+                            <?php foreach ($data['musicians'] as $musician): ?>
+                            <img src="../../<?= $musician->getImage(); ?>" class="img-fluid rounded-top" alt="Musician image">
+                            <?php endforeach; ?>
                             <div class="content">
                                 <h2 class="content-title font-weight-bolder text-center">
                                     <?= $data['event']->getName(); ?>
