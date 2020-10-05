@@ -63,8 +63,6 @@ class EventController extends AbstractController
                 'price' => $price,
                 'discount' => $discount
             ]);
-
-            $event = Event::getOne('id', $id);
         }
         else
         {
