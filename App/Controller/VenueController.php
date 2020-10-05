@@ -219,7 +219,7 @@ class VenueController extends AbstractController
         $ext = strtolower(end($ext));
 
         $name = $name . uniqid('_', false) . '.' . $ext;
-        $path = "../../assets" . DS . "venues" . DS;
+        $path = "assets" . DS . "venues" . DS;
         return $path . $name;
     }
 }
