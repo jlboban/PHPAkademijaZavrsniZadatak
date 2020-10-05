@@ -93,7 +93,7 @@
                     <div class="mw-full">
                         <div class="card p-0 border">
                             <?php foreach ($data['event'] as $event): ?>
-                            <img src="../../<?= $event->getImage(); ?>" class="img-fluid rounded-top" alt="Venue image">
+                            <img src="../../../<?= $event->getImage(); ?>" class="img-fluid rounded-top" alt="Event image">
                             <div class="content">
                                 <h1 class="content-title font-weight-bolder text-center">
                                     <?= $event->getName(); ?>
@@ -131,7 +131,7 @@
                 <div  class="col-sm-12">
                     <div class="mw-full">
                         <div class="card p-0 border">
-                            <img src="../../<?= $musician->getImage(); ?>" class="img-fluid rounded-top" alt="Musician image">
+                            <img src="../../../<?= $musician->getImage(); ?>" class="img-fluid rounded-top" alt="Musician image">
                             <div class="content">
                                 <h3 class="content-title font-weight-bold">
                                     <?= ' | ' . $musician->getName() . ' | ' . $musician->getGenre() . ' | ' ?>
